@@ -1,0 +1,230 @@
+---
+---
+
+<section class="services" id="services">
+  <div class="container">
+    <div class="services-header">
+      <h2 class="services-subtitle">Metodologia Exclusiva</h2>
+      <p class="services-title">Processo de Novação FCVS</p>
+      <p class="services-description">
+        Dominamos todas as etapas do ciclo de vida dos contratos, garantindo celeridade e conformidade legal.
+      </p>
+    </div>
+    
+    <div class="services-grid">
+      <div class="service-card">
+        <div class="card-icon">
+          <span class="material-symbols-outlined">how_to_reg</span>
+        </div>
+        <div>
+          <h3 class="card-title">Habilitação</h3>
+          <p class="card-description">
+            Verificação inicial rigorosa da elegibilidade dos contratos junto aos órgãos competentes.
+          </p>
+        </div>
+      </div>
+      
+      <div class="service-card">
+        <div class="card-icon">
+          <span class="material-symbols-outlined">article</span>
+        </div>
+        <div>
+          <h3 class="card-title">Análise Documental</h3>
+          <p class="card-description">
+            Auditoria completa da documentação física e digital para identificar inconsistências.
+          </p>
+        </div>
+      </div>
+      
+      <div class="service-card">
+        <div class="card-icon">
+          <span class="material-symbols-outlined">build_circle</span>
+        </div>
+        <div>
+          <h3 class="card-title">Saneamento</h3>
+          <p class="card-description">
+            Resolução ativa de pendências cadastrais e divergências de valores.
+          </p>
+        </div>
+      </div>
+      
+      <div class="service-card">
+        <div class="card-icon">
+          <span class="material-symbols-outlined">gavel</span>
+        </div>
+        <div>
+          <h3 class="card-title">Formalização</h3>
+          <p class="card-description">
+            Gestão jurídica completa das assinaturas e validações contratuais.
+          </p>
+        </div>
+      </div>
+      
+      <div class="service-card">
+        <div class="card-icon">
+          <span class="material-symbols-outlined">monitoring</span>
+        </div>
+        <div>
+          <h3 class="card-title">Acompanhamento</h3>
+          <p class="card-description">
+            Monitoramento em tempo real do status de cada processo até a conclusão.
+          </p>
+        </div>
+      </div>
+      
+      <div class="service-card service-card-cta">
+        <h3 class="card-title-cta">Precisa de suporte personalizado?</h3>
+        <p class="card-description-cta">
+          Nossa equipe técnica está pronta para avaliar sua carteira de contratos.
+        </p>
+        <a href="#" class="card-link">
+          Fale conosco agora <span class="material-symbols-outlined">arrow_forward</span>
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .services {
+    padding: var(--spacing-24) 0;
+    background-color: white;
+  }
+  
+  .services-header {
+    max-width: 42rem;
+    margin: 0 auto var(--spacing-16);
+    text-align: center;
+  }
+  
+  .services-subtitle {
+    font-size: 1rem;
+    font-weight: var(--font-weight-bold);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--color-institutional);
+  }
+  
+  .services-title {
+    margin-top: var(--spacing-2);
+    font-size: 1.875rem;
+    font-weight: var(--font-weight-bold);
+    letter-spacing: -0.025em;
+    color: var(--color-gray-900);
+  }
+  
+  @media (min-width: 640px) {
+    .services-title {
+      font-size: 2.25rem;
+    }
+  }
+  
+  .services-description {
+    margin-top: var(--spacing-4);
+    font-size: 1.125rem;
+    color: var(--color-gray-600);
+  }
+  
+  .services-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--spacing-6);
+  }
+  
+  @media (min-width: 768px) {
+    .services-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+  
+  @media (min-width: 1024px) {
+    .services-grid {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+  
+  .service-card {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-4);
+    padding: var(--spacing-6);
+    border-radius: var(--radius-xl);
+    border: 1px solid var(--color-gray-200);
+    background-color: white;
+    transition: all var(--transition-base);
+  }
+  
+  .service-card:hover {
+    border-color: rgba(0, 100, 0, 0.3);
+  }
+  
+  .card-icon {
+    display: flex;
+    width: 3rem;
+    height: 3rem;
+    align-items: center;
+    justify-content: center;
+    border-radius: var(--radius-lg);
+    background-color: var(--color-green-50);
+    color: var(--color-institutional);
+    transition: all var(--transition-base);
+  }
+  
+  .service-card:hover .card-icon {
+    background-color: var(--color-institutional);
+    color: white;
+  }
+  
+  .card-title {
+    font-size: 1.125rem;
+    font-weight: var(--font-weight-bold);
+    color: var(--color-gray-900);
+    margin-bottom: var(--spacing-2);
+  }
+  
+  .card-description {
+    font-size: 0.875rem;
+    color: var(--color-gray-600);
+    line-height: 1.75;
+  }
+  
+  .service-card-cta {
+    background-color: var(--color-institutional);
+    color: white;
+    border: none;
+  }
+  
+  .card-title-cta {
+    font-size: 1.25rem;
+    font-weight: var(--font-weight-bold);
+    color: white;
+    margin-bottom: var(--spacing-2);
+  }
+  
+  .card-description-cta {
+    font-size: 0.875rem;
+    color: var(--color-green-100);
+    margin-bottom: var(--spacing-2);
+  }
+  
+  .card-link {
+    display: inline-flex;
+    align-items: center;
+    margin-top: var(--spacing-2);
+    font-size: 0.875rem;
+    font-weight: var(--font-weight-bold);
+    color: white;
+    transition: color var(--transition-fast);
+  }
+  
+  .card-link:hover {
+    color: var(--color-primary);
+  }
+  
+  .card-link .material-symbols-outlined {
+    margin-left: 0.25rem;
+    font-size: 0.875rem;
+  }
+</style>
+

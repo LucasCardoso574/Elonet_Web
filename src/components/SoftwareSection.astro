@@ -1,0 +1,370 @@
+---
+---
+
+<section class="software" id="software">
+  <div class="container">
+    <div class="software-grid">
+      <div class="software-content">
+        <div>
+          <h2 class="software-subtitle">Tecnologia Proprietária</h2>
+          <h3 class="software-title">Software Elonet</h3>
+          <p class="software-description">
+            Desenvolvemos uma solução exclusiva para o mercado habitacional que oferece controle absoluto, substituindo planilhas manuais por automação inteligente.
+          </p>
+        </div>
+        
+        <div class="software-features">
+          <div class="feature-row">
+            <div class="feature-icon">
+              <span class="material-symbols-outlined">sync_alt</span>
+            </div>
+            <div>
+              <h4 class="feature-title">Controle de Fases e Workflow</h4>
+              <p class="feature-text">
+                Painéis kanban e listas inteligentes que mostram exatamente onde cada contrato está travado.
+              </p>
+            </div>
+          </div>
+          
+          <div class="feature-row">
+            <div class="feature-icon">
+              <span class="material-symbols-outlined">history_edu</span>
+            </div>
+            <div>
+              <h4 class="feature-title">Rastreabilidade Completa</h4>
+              <p class="feature-text">
+                Histórico imutável de alterações, logins e ações realizadas no sistema.
+              </p>
+            </div>
+          </div>
+          
+          <div class="feature-row">
+            <div class="feature-icon">
+              <span class="material-symbols-outlined">smart_toy</span>
+            </div>
+            <div>
+              <h4 class="feature-title">Automação Jurídica</h4>
+              <p class="feature-text">
+                Geração automática de minutas e documentos com base em templates validados.
+              </p>
+            </div>
+          </div>
+        </div>
+        
+        <div class="software-cta">
+          <button class="btn-software">
+            Agendar demonstração do sistema
+          </button>
+        </div>
+      </div>
+      
+      <div class="software-visual">
+        <div class="mockup-container">
+          <div class="mockup-frame">
+            <div class="mockup-screen">
+              <div class="mockup-header">
+                <div class="mockup-dots">
+                  <div class="dot dot-red"></div>
+                  <div class="dot dot-yellow"></div>
+                  <div class="dot dot-green"></div>
+                </div>
+                <div class="mockup-search"></div>
+              </div>
+              <div class="mockup-body">
+                <div class="mockup-sidebar">
+                  <div class="sidebar-item sidebar-active">
+                    <span class="material-symbols-outlined">dashboard</span>
+                  </div>
+                  <div class="sidebar-item">
+                    <span class="material-symbols-outlined">folder</span>
+                  </div>
+                  <div class="sidebar-item">
+                    <span class="material-symbols-outlined">settings</span>
+                  </div>
+                </div>
+                <div class="mockup-main">
+                  <img 
+                    src="/images/sistema.png" 
+                    alt="Dashboard do Software Elonet mostrando métricas financeiras e gráficos" 
+                    class="system-image"
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="mockup-glow"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .software {
+    padding: var(--spacing-24) 0;
+    background-color: var(--color-background-off);
+    overflow: hidden;
+  }
+  
+  .software-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--spacing-16);
+    align-items: center;
+  }
+  
+  @media (min-width: 1024px) {
+    .software-grid {
+      grid-template-columns: 1fr 1fr;
+    }
+  }
+  
+  .software-content {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-8);
+    order: 2;
+  }
+  
+  @media (min-width: 1024px) {
+    .software-content {
+      order: 1;
+    }
+  }
+  
+  .software-subtitle {
+    font-size: 1rem;
+    font-weight: var(--font-weight-bold);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--color-institutional);
+  }
+  
+  .software-title {
+    margin-top: var(--spacing-2);
+    font-size: 1.875rem;
+    font-weight: var(--font-weight-bold);
+    letter-spacing: -0.025em;
+    color: var(--color-gray-900);
+  }
+  
+  @media (min-width: 640px) {
+    .software-title {
+      font-size: 2.25rem;
+    }
+  }
+  
+  .software-description {
+    margin-top: var(--spacing-4);
+    font-size: 1.125rem;
+    color: var(--color-gray-600);
+  }
+  
+  .software-features {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-6);
+  }
+  
+  .feature-row {
+    display: flex;
+    gap: var(--spacing-4);
+  }
+  
+  .feature-icon {
+    flex: none;
+    padding-top: 0.25rem;
+    color: var(--color-institutional);
+  }
+  
+  .feature-title {
+    font-weight: var(--font-weight-bold);
+    color: var(--color-gray-900);
+    margin-bottom: 0.25rem;
+  }
+  
+  .feature-text {
+    font-size: 0.875rem;
+    color: var(--color-gray-600);
+  }
+  
+  .software-cta {
+    padding-top: var(--spacing-4);
+  }
+  
+  .btn-software {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: var(--spacing-3) var(--spacing-6);
+    border-radius: var(--radius-lg);
+    border: 1px solid var(--color-gray-300);
+    background-color: white;
+    color: var(--color-gray-700);
+    font-size: 0.875rem;
+    font-weight: var(--font-weight-bold);
+    transition: all var(--transition-base);
+  }
+  
+  .btn-software:hover {
+    background-color: var(--color-gray-50);
+    border-color: var(--color-gray-400);
+  }
+  
+  .software-visual {
+    position: relative;
+    order: 1;
+  }
+  
+  @media (min-width: 1024px) {
+    .software-visual {
+      order: 2;
+    }
+  }
+  
+  .mockup-container {
+    position: relative;
+  }
+  
+  .mockup-frame {
+    position: relative;
+    border-radius: var(--radius-xl);
+    background-color: var(--color-gray-900);
+    padding: 0.5rem;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+  }
+  
+  @media (min-width: 640px) {
+    .mockup-frame {
+      border-radius: var(--radius-2xl);
+      padding: 0.75rem;
+    }
+  }
+  
+  .mockup-screen {
+    position: relative;
+    aspect-ratio: 16 / 10;
+    border-radius: var(--radius-lg);
+    background-color: var(--color-gray-800);
+    overflow: hidden;
+  }
+  
+  .mockup-header {
+    height: 2.5rem;
+    border-bottom: 1px solid var(--color-gray-200);
+    background-color: white;
+    display: flex;
+    align-items: center;
+    padding: 0 var(--spacing-4);
+    gap: var(--spacing-4);
+  }
+  
+  .mockup-dots {
+    display: flex;
+    gap: 0.375rem;
+  }
+  
+  .dot {
+    width: 0.625rem;
+    height: 0.625rem;
+    border-radius: var(--radius-full);
+  }
+  
+  .dot-red {
+    background-color: #f87171;
+  }
+  
+  .dot-yellow {
+    background-color: #fbbf24;
+  }
+  
+  .dot-green {
+    background-color: #4ade80;
+  }
+  
+  .mockup-search {
+    width: 33.333333%;
+    height: 1rem;
+    background-color: var(--color-gray-100);
+    border-radius: var(--radius-md);
+  }
+  
+  .mockup-body {
+    flex: 1;
+    display: flex;
+    overflow: hidden;
+    height: calc(100% - 2.5rem);
+  }
+  
+  .mockup-sidebar {
+    width: 4rem;
+    border-right: 1px solid var(--color-gray-200);
+    background-color: white;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: var(--spacing-4) 0;
+    gap: var(--spacing-4);
+  }
+  
+  .sidebar-item {
+    display: flex;
+    width: 2rem;
+    height: 2rem;
+    align-items: center;
+    justify-content: center;
+    border-radius: var(--radius-md);
+    color: var(--color-gray-400);
+    transition: background-color var(--transition-fast);
+  }
+  
+  .sidebar-item:hover {
+    background-color: var(--color-gray-100);
+  }
+  
+  .sidebar-active {
+    background-color: rgba(0, 100, 0, 0.1);
+    color: var(--color-institutional);
+  }
+  
+  .sidebar-item .material-symbols-outlined {
+    font-size: 1.125rem;
+  }
+  
+  .mockup-main {
+    flex: 1;
+    padding: 0;
+    margin: 0;
+    background-color: white;
+    overflow: hidden;
+    position: relative;
+    min-height: 0;
+  }
+  
+  .system-image {
+    width: 100%;
+    height: 100%;
+    min-height: 100%;
+    object-fit: cover;
+    object-position: center center;
+    display: block;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+  }
+  
+  .mockup-glow {
+    position: absolute;
+    right: -3rem;
+    bottom: -3rem;
+    z-index: -10;
+    width: 300px;
+    height: 300px;
+    border-radius: var(--radius-full);
+    background-color: rgba(0, 255, 0, 0.2);
+    filter: blur(64px);
+  }
+</style>
+

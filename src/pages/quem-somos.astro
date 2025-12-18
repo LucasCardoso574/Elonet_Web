@@ -1,0 +1,169 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+---
+
+<Layout title="Quem Somos - Elonet Habitação">
+  <Header />
+  <main>
+    <section class="page-hero">
+      <div class="container">
+        <h1 class="page-title">Quem Somos</h1>
+      </div>
+    </section>
+    
+    <section class="content-section">
+      <div class="container">
+        <div class="content-wrapper">
+          <h2 class="section-title">A ELONET</h2>
+          <p class="content-text">
+            A ELONET atua no segmento de Habitação e Crédito Imobiliário, oferecendo soluções especializadas nos serviços decorrentes do desdobramento do Sistema Financeiro da Habitação (SFH). Nossa atuação abrange Consultoria, Assessoria, Habilitação, Homologação, Validação e Novação de créditos junto ao FCVS, além da Administração de Carteiras de Crédito Habitacional e Recebíveis Imobiliários, suporte a Construtoras e Regularização/Legalização Fundiária.
+          </p>
+          <p class="content-text">
+            Fundada em setembro de 1997, a ELONET possui sua Matriz em Brasília, filial no estado de Mato Grosso e estrutura de suporte comercial e técnico nos estados de São Paulo, Alagoas e Pernambuco, garantindo presença nacional e atendimento especializado.
+          </p>
+          <p class="content-text">
+            Nosso diferencial está no alto nível técnico do nosso time, composto por profissionais com mais de 24 anos de experiência comprovada em assuntos relacionados, direta e indiretamente, ao SFH, com reconhecida expertise em Administração de Créditos e Recebíveis Imobiliários, FCVS e Regularização Fundiária. Essa trajetória consolidou a ELONET como uma empresa reconhecida pelo profissionalismo, precisão técnica e confiabilidade na condução dos interesses de seus clientes.
+          </p>
+        </div>
+      </div>
+    </section>
+    
+    <section class="dna-section">
+      <div class="container">
+        <h2 class="section-title">Nosso DNA | Nossa Cultura</h2>
+        <div class="dna-grid">
+          <div class="dna-card">
+            <h3 class="dna-title">Missão</h3>
+            <p class="dna-text">
+              Entregar soluções técnicas e estratégicas em habitação e crédito imobiliário, com foco na recuperação de créditos, na conformidade legal e na segurança institucional dos processos, atuando de forma ética, eficiente e orientada a resultados.
+            </p>
+          </div>
+          <div class="dna-card">
+            <h3 class="dna-title">Visão</h3>
+            <p class="dna-text">
+              Ser referência nacional em soluções para o FCVS e o Sistema Financeiro da Habitação, liderando processos de novação até o encerramento definitivo do FCVS em 31/12/2026, com excelência técnica e credibilidade reconhecida pelo mercado.
+            </p>
+          </div>
+          <div class="dna-card dna-full">
+            <h3 class="dna-title">Valores</h3>
+            <ul class="values-list">
+              <li>Excelência Técnica e Especialização</li>
+              <li>Ética, Transparência e Conformidade Legal</li>
+              <li>Compromisso com Resultados e Prazos</li>
+              <li>Atuação Estratégica em Todas as Fases do FCVS</li>
+              <li>Confiança, Credibilidade e Relacionamento de Longo Prazo</li>
+              <li>Presença Nacional com Suporte Técnico Especializado</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+  <Footer />
+</Layout>
+
+<style>
+  .page-hero {
+    padding: var(--spacing-16) 0 var(--spacing-8);
+    background-color: var(--color-background-off);
+  }
+  
+  .page-title {
+    font-size: 2.5rem;
+    font-weight: var(--font-weight-bold);
+    color: var(--color-gray-900);
+    text-align: center;
+  }
+  
+  .content-section {
+    padding: var(--spacing-16) 0;
+    background-color: white;
+  }
+  
+  .content-wrapper {
+    max-width: 48rem;
+    margin: 0 auto;
+  }
+  
+  .section-title {
+    font-size: 2rem;
+    font-weight: var(--font-weight-bold);
+    color: var(--color-gray-900);
+    margin-bottom: var(--spacing-8);
+  }
+  
+  .content-text {
+    font-size: 1.125rem;
+    line-height: 1.75;
+    color: var(--color-gray-600);
+    margin-bottom: var(--spacing-6);
+  }
+  
+  .dna-section {
+    padding: var(--spacing-16) 0;
+    background-color: var(--color-background-off);
+  }
+  
+  .dna-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--spacing-6);
+    max-width: 48rem;
+    margin: 0 auto;
+  }
+  
+  @media (min-width: 768px) {
+    .dna-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+    
+    .dna-full {
+      grid-column: 1 / -1;
+    }
+  }
+  
+  .dna-card {
+    padding: var(--spacing-6);
+    background-color: white;
+    border: 1px solid var(--color-gray-200);
+    border-radius: var(--radius-lg);
+  }
+  
+  .dna-title {
+    font-size: 1.5rem;
+    font-weight: var(--font-weight-bold);
+    color: var(--color-institutional);
+    margin-bottom: var(--spacing-4);
+  }
+  
+  .dna-text {
+    font-size: 1rem;
+    line-height: 1.75;
+    color: var(--color-gray-600);
+  }
+  
+  .values-list {
+    list-style: none;
+    padding: 0;
+  }
+  
+  .values-list li {
+    padding: var(--spacing-2) 0;
+    padding-left: var(--spacing-6);
+    position: relative;
+    font-size: 1rem;
+    line-height: 1.75;
+    color: var(--color-gray-600);
+  }
+  
+  .values-list li::before {
+    content: "•";
+    position: absolute;
+    left: 0;
+    color: var(--color-institutional);
+    font-weight: var(--font-weight-bold);
+  }
+</style>
+

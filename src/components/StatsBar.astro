@@ -1,0 +1,72 @@
+---
+---
+
+<section class="stats-bar">
+  <div class="container">
+    <dl class="stats-grid">
+      <div class="stat-item">
+        <dt class="stat-label">Anos de experiência no setor</dt>
+        <dd class="stat-value">28</dd>
+      </div>
+      <div class="stat-item">
+        <dt class="stat-label">Fundada em</dt>
+        <dd class="stat-value">1997</dd>
+      </div>
+      <div class="stat-item">
+        <dt class="stat-label">Presença Nacional</dt>
+        <dd class="stat-value">5 Estados</dd>
+      </div>
+    </dl>
+  </div>
+</section>
+
+<style>
+  .stats-bar {
+    background-color: var(--color-institutional);
+    padding: var(--spacing-12) 0;
+  }
+  
+  .stats-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--spacing-8);
+    text-align: center;
+  }
+  
+  @media (min-width: 640px) {
+    .stats-grid {
+      grid-template-columns: repeat(3, 1fr);
+      gap: var(--spacing-8);
+    }
+  }
+  
+  .stat-item {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-2);
+    margin: 0 auto;
+    max-width: 20rem;
+  }
+  
+  .stat-label {
+    order: 2;
+    font-size: 1rem;
+    line-height: 1.75;
+    color: var(--color-green-100);
+  }
+  
+  .stat-value {
+    order: 1;
+    font-size: 1.875rem;
+    font-weight: var(--font-weight-bold);
+    letter-spacing: -0.025em;
+    color: white;
+  }
+  
+  @media (min-width: 640px) {
+    .stat-value {
+      font-size: 3rem;
+    }
+  }
+</style>
+

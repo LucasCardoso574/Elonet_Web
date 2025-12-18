@@ -1,0 +1,198 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+---
+
+<Layout title="Soluções - Elonet Habitação">
+  <Header />
+  <main>
+    <section class="page-hero">
+      <div class="container">
+        <h1 class="page-title">Soluções</h1>
+      </div>
+    </section>
+    
+    <section class="content-section">
+      <div class="container">
+        <div class="content-wrapper">
+          <h2 class="section-title">Contexto FCVS</h2>
+          <p class="content-text">
+            Todos os Agentes Financeiros detentores de créditos junto ao FCVS enfrentam, até 31 de dezembro de 2026, um desafio decisivo: o prazo final para que o Tesouro Nacional promova as Novações e encerre definitivamente o Fundo de Compensação de Variações Salariais – FCVS.
+          </p>
+          <p class="content-text">
+            Desde 1997, os Agentes Financeiros e demais entes envolvidos no processo de novação dispuseram de aproximadamente 30 anos para promover o acerto de contas decorrente do resíduo gerado pelo descompasso entre os índices de correção monetária e os reajustes aplicados às prestações dos contratos habitacionais.
+          </p>
+          <p class="content-text">
+            Entretanto, ao longo desse período, as sucessivas alterações no MNPO, instrumento responsável por regulamentar toda a esteira operacional do FCVS — Habilitação, Homologação, Validação e Novação — impactaram de forma significativa a eficiência do processo.
+          </p>
+          <p class="content-text">
+            Tais mudanças resultaram em entraves operacionais que afetaram não apenas os Agentes Financeiros, mas também os demais entes envolvidos, como CAIXA, Centralizadoras, CGU e PGFN.
+          </p>
+          <p class="content-text">
+            Como consequência, verificou-se um afunilamento expressivo dos contratos encaminhados para análise e auditoria, comprometendo o avanço das operações e gerando prejuízos irreversíveis aos Credores do Fundo.
+          </p>
+        </div>
+      </div>
+    </section>
+    
+    <section class="phases-section">
+      <div class="container">
+        <h2 class="section-title">Fases do Processo FCVS</h2>
+        <p class="section-subtitle">
+          Os Agentes Operadores do FGTS foram — e continuam sendo — diretamente impactados pela morosidade da esteira operacional do FCVS, mantendo contratos posicionados em diferentes estágios do processo:
+        </p>
+        <div class="phases-grid">
+          <div class="phase-card">
+            <h3 class="phase-title">Fase Embrionária</h3>
+            <p class="phase-text">Contratos que sequer iniciaram os trabalhos de habilitação.</p>
+          </div>
+          <div class="phase-card">
+            <h3 class="phase-title">Fase Inicial</h3>
+            <p class="phase-text">Processos aguardando a primeira análise pela Centralizadora.</p>
+          </div>
+          <div class="phase-card">
+            <h3 class="phase-title">Fase Intermediária</h3>
+            <p class="phase-text">Elaboração e envio de recursos para contratos com negativa de cobertura.</p>
+          </div>
+          <div class="phase-card">
+            <h3 class="phase-title">Fase Pré-Novação</h3>
+            <p class="phase-text">Contratos aguardando auditoria.</p>
+          </div>
+          <div class="phase-card">
+            <h3 class="phase-title">Fase Final</h3>
+            <p class="phase-text">Contratos aptos à Novação dos Créditos.</p>
+          </div>
+        </div>
+        <div class="cta-box">
+          <p class="cta-text">
+            Diante da proximidade do prazo final, torna-se imperativo que os Agentes Financeiros iniciem, com a máxima urgência, os trabalhos necessários à viabilização da novação até 2026.
+          </p>
+          <a href="https://wa.me/5511999999999?text=Olá,%20gostaria%20de%20falar%20com%20um%20especialista" class="cta-button">Falar com um Especialista</a>
+        </div>
+      </div>
+    </section>
+  </main>
+  <Footer />
+</Layout>
+
+<style>
+  .page-hero {
+    padding: var(--spacing-16) 0 var(--spacing-8);
+    background-color: var(--color-background-off);
+  }
+  
+  .page-title {
+    font-size: 2.5rem;
+    font-weight: var(--font-weight-bold);
+    color: var(--color-gray-900);
+    text-align: center;
+  }
+  
+  .content-section {
+    padding: var(--spacing-16) 0;
+    background-color: white;
+  }
+  
+  .content-wrapper {
+    max-width: 48rem;
+    margin: 0 auto;
+  }
+  
+  .section-title {
+    font-size: 2rem;
+    font-weight: var(--font-weight-bold);
+    color: var(--color-gray-900);
+    margin-bottom: var(--spacing-8);
+  }
+  
+  .section-subtitle {
+    font-size: 1.125rem;
+    line-height: 1.75;
+    color: var(--color-gray-600);
+    margin-bottom: var(--spacing-8);
+    max-width: 48rem;
+  }
+  
+  .content-text {
+    font-size: 1.125rem;
+    line-height: 1.75;
+    color: var(--color-gray-600);
+    margin-bottom: var(--spacing-6);
+  }
+  
+  .phases-section {
+    padding: var(--spacing-16) 0;
+    background-color: var(--color-background-off);
+  }
+  
+  .phases-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--spacing-6);
+    margin-bottom: var(--spacing-12);
+  }
+  
+  @media (min-width: 640px) {
+    .phases-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+  
+  @media (min-width: 1024px) {
+    .phases-grid {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+  
+  .phase-card {
+    padding: var(--spacing-6);
+    background-color: white;
+    border: 1px solid var(--color-gray-200);
+    border-radius: var(--radius-lg);
+  }
+  
+  .phase-title {
+    font-size: 1.25rem;
+    font-weight: var(--font-weight-bold);
+    color: var(--color-institutional);
+    margin-bottom: var(--spacing-3);
+  }
+  
+  .phase-text {
+    font-size: 1rem;
+    line-height: 1.75;
+    color: var(--color-gray-600);
+  }
+  
+  .cta-box {
+    max-width: 48rem;
+    margin: 0 auto;
+    padding: var(--spacing-8);
+    background-color: var(--color-institutional);
+    border-radius: var(--radius-xl);
+    text-align: center;
+  }
+  
+  .cta-text {
+    font-size: 1.125rem;
+    line-height: 1.75;
+    color: white;
+    margin-bottom: var(--spacing-6);
+  }
+  
+  .cta-button {
+    display: inline-block;
+    padding: var(--spacing-4) var(--spacing-8);
+    background-color: var(--color-primary);
+    color: var(--color-institutional);
+    border-radius: var(--radius-lg);
+    font-weight: var(--font-weight-bold);
+    transition: all var(--transition-base);
+  }
+  
+  .cta-button:hover {
+    background-color: var(--color-green-300);
+  }
+</style>
+

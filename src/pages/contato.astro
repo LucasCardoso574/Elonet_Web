@@ -1,0 +1,220 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+---
+
+<Layout title="Contato - Elonet Habitação">
+  <Header />
+  <main>
+    <section class="page-hero">
+      <div class="container">
+        <h1 class="page-title">Contato</h1>
+        <p class="page-subtitle">Fale com um especialista</p>
+      </div>
+    </section>
+    
+    <section class="contact-section">
+      <div class="container">
+        <div class="contact-grid">
+          <div class="contact-info">
+            <h2 class="section-title">Entre em contato</h2>
+            <p class="contact-text">
+              Preencha o formulário ou entre em contato diretamente via WhatsApp. Nossa equipe técnica está pronta para avaliar sua demanda e apresentar soluções personalizadas.
+            </p>
+            <div class="contact-methods">
+              <a href="https://wa.me/5511999999999?text=Olá,%20gostaria%20de%20falar%20com%20um%20especialista" class="contact-method">
+                <span class="material-symbols-outlined">chat</span>
+                <div>
+                  <strong>WhatsApp</strong>
+                  <span>Atendimento direto</span>
+                </div>
+              </a>
+              <div class="contact-method">
+                <span class="material-symbols-outlined">mail</span>
+                <div>
+                  <strong>E-mail</strong>
+                  <span>contato@elonet.com.br</span>
+                </div>
+              </div>
+              <div class="contact-method">
+                <span class="material-symbols-outlined">call</span>
+                <div>
+                  <strong>Telefone</strong>
+                  <span>+55 (11) 3000-0000</span>
+                </div>
+              </div>
+            </div>
+          </div>
+          
+          <form class="contact-form">
+            <div class="form-group">
+              <label for="nome">Nome</label>
+              <input type="text" id="nome" name="nome" required />
+            </div>
+            <div class="form-group">
+              <label for="instituicao">Instituição/Empresa</label>
+              <input type="text" id="instituicao" name="instituicao" required />
+            </div>
+            <div class="form-group">
+              <label for="contato">E-mail ou Telefone</label>
+              <input type="text" id="contato" name="contato" required />
+            </div>
+            <button type="submit" class="form-button">Enviar</button>
+          </form>
+        </div>
+      </div>
+    </section>
+  </main>
+  <Footer />
+</Layout>
+
+<style>
+  .page-hero {
+    padding: var(--spacing-16) 0 var(--spacing-8);
+    background-color: var(--color-background-off);
+  }
+  
+  .page-title {
+    font-size: 2.5rem;
+    font-weight: var(--font-weight-bold);
+    color: var(--color-gray-900);
+    text-align: center;
+    margin-bottom: var(--spacing-4);
+  }
+  
+  .page-subtitle {
+    font-size: 1.25rem;
+    color: var(--color-gray-600);
+    text-align: center;
+  }
+  
+  .contact-section {
+    padding: var(--spacing-16) 0;
+    background-color: white;
+  }
+  
+  .contact-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--spacing-12);
+    max-width: 64rem;
+    margin: 0 auto;
+  }
+  
+  @media (min-width: 1024px) {
+    .contact-grid {
+      grid-template-columns: 1fr 1fr;
+    }
+  }
+  
+  .section-title {
+    font-size: 2rem;
+    font-weight: var(--font-weight-bold);
+    color: var(--color-gray-900);
+    margin-bottom: var(--spacing-6);
+  }
+  
+  .contact-text {
+    font-size: 1.125rem;
+    line-height: 1.75;
+    color: var(--color-gray-600);
+    margin-bottom: var(--spacing-8);
+  }
+  
+  .contact-methods {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-4);
+  }
+  
+  .contact-method {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-4);
+    padding: var(--spacing-4);
+    border: 1px solid var(--color-gray-200);
+    border-radius: var(--radius-lg);
+    text-decoration: none;
+    color: inherit;
+    transition: all var(--transition-base);
+  }
+  
+  .contact-method:hover {
+    border-color: var(--color-institutional);
+    background-color: var(--color-green-50);
+  }
+  
+  .contact-method .material-symbols-outlined {
+    color: var(--color-institutional);
+    font-size: 2rem;
+  }
+  
+  .contact-method div {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .contact-method strong {
+    color: var(--color-gray-900);
+    font-weight: var(--font-weight-bold);
+  }
+  
+  .contact-method span {
+    color: var(--color-gray-600);
+    font-size: 0.875rem;
+  }
+  
+  .contact-form {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-6);
+    padding: var(--spacing-8);
+    background-color: var(--color-background-off);
+    border-radius: var(--radius-xl);
+  }
+  
+  .form-group {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-2);
+  }
+  
+  .form-group label {
+    font-size: 0.875rem;
+    font-weight: var(--font-weight-semibold);
+    color: var(--color-gray-700);
+  }
+  
+  .form-group input {
+    padding: var(--spacing-3) var(--spacing-4);
+    border: 1px solid var(--color-gray-300);
+    border-radius: var(--radius-lg);
+    font-size: 1rem;
+    font-family: inherit;
+    transition: all var(--transition-base);
+  }
+  
+  .form-group input:focus {
+    outline: none;
+    border-color: var(--color-institutional);
+    box-shadow: 0 0 0 3px rgba(0, 100, 0, 0.1);
+  }
+  
+  .form-button {
+    padding: var(--spacing-4) var(--spacing-8);
+    background-color: var(--color-institutional);
+    color: white;
+    border: none;
+    border-radius: var(--radius-lg);
+    font-size: 1rem;
+    font-weight: var(--font-weight-bold);
+    cursor: pointer;
+    transition: all var(--transition-base);
+  }
+  
+  .form-button:hover {
+    background-color: var(--color-institutional-hover);
+  }
+</style>
+

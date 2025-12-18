@@ -1,0 +1,125 @@
+---
+---
+
+<section class="why-us">
+  <div class="container">
+    <div class="why-us-header">
+      <h2 class="why-us-title">Por que escolher a Elonet?</h2>
+      <p class="why-us-description">
+        Consultoria especializada no Sistema Financeiro da Habitação, com mais de 25 anos de experiência na gestão de crédito habitacional, FCVS e regularização fundiária.
+      </p>
+    </div>
+    
+    <div class="why-us-grid">
+      <div class="why-us-card">
+        <div class="why-us-icon">
+          <span class="material-symbols-outlined">target</span>
+        </div>
+        <h3 class="why-us-card-title">Especialização Técnica</h3>
+        <p class="why-us-card-text">
+          Profissionais com mais de 24 anos de experiência comprovada em SFH, FCVS e Regularização Fundiária.
+        </p>
+      </div>
+      
+      <div class="why-us-card">
+        <div class="why-us-icon">
+          <span class="material-symbols-outlined">public</span>
+        </div>
+        <h3 class="why-us-card-title">Presença Nacional</h3>
+        <p class="why-us-card-text">
+          Matriz em Brasília, filial no Mato Grosso e estrutura de suporte em São Paulo, Alagoas e Pernambuco.
+        </p>
+      </div>
+      
+      <div class="why-us-card">
+        <div class="why-us-icon">
+          <span class="material-symbols-outlined">verified</span>
+        </div>
+        <h3 class="why-us-card-title">Credibilidade Reconhecida</h3>
+        <p class="why-us-card-text">
+          Empresa reconhecida pelo profissionalismo, precisão técnica e confiabilidade na condução dos interesses de seus clientes.
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .why-us {
+    padding: var(--spacing-24) 0;
+    background-color: white;
+  }
+  
+  .why-us-header {
+    max-width: 42rem;
+    margin: 0 auto var(--spacing-16);
+    text-align: center;
+  }
+  
+  .why-us-title {
+    font-size: 1.875rem;
+    font-weight: var(--font-weight-bold);
+    letter-spacing: -0.025em;
+    color: var(--color-gray-900);
+  }
+  
+  @media (min-width: 640px) {
+    .why-us-title {
+      font-size: 2.25rem;
+    }
+  }
+  
+  .why-us-description {
+    margin-top: var(--spacing-4);
+    font-size: 1.125rem;
+    color: var(--color-gray-600);
+  }
+  
+  .why-us-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--spacing-8);
+  }
+  
+  @media (min-width: 768px) {
+    .why-us-grid {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+  
+  .why-us-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    padding: var(--spacing-6);
+  }
+  
+  .why-us-icon {
+    display: inline-flex;
+    width: 4rem;
+    height: 4rem;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: var(--spacing-4);
+    border-radius: var(--radius-full);
+    background-color: var(--color-green-50);
+    color: var(--color-institutional);
+  }
+  
+  .why-us-icon .material-symbols-outlined {
+    font-size: 1.875rem;
+  }
+  
+  .why-us-card-title {
+    font-size: 1.25rem;
+    font-weight: var(--font-weight-bold);
+    color: var(--color-gray-900);
+    margin-bottom: var(--spacing-2);
+  }
+  
+  .why-us-card-text {
+    color: var(--color-gray-600);
+  }
+</style>
+

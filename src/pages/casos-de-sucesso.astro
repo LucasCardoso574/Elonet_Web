@@ -1,0 +1,105 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+---
+
+<Layout title="Casos de Sucesso - Elonet Habitação">
+  <Header />
+  <main>
+    <section class="page-hero">
+      <div class="container">
+        <h1 class="page-title">Casos de Sucesso</h1>
+        <p class="page-subtitle">Resultados que comprovam nossa expertise e compromisso com a excelência</p>
+      </div>
+    </section>
+    
+    <section class="content-section">
+      <div class="container">
+        <div class="content-wrapper">
+          <p class="content-text">
+            Em breve, compartilharemos casos de sucesso que demonstram nossa capacidade de entregar resultados técnicos e estratégicos em processos de FCVS, novação de créditos e regularização fundiária.
+          </p>
+          <p class="content-text">
+            Nossa trajetória de mais de 25 anos no mercado, com reconhecida expertise em Administração de Créditos e Recebíveis Imobiliários, FCVS e Regularização Fundiária, consolidou a ELONET como uma empresa reconhecida pelo profissionalismo, precisão técnica e confiabilidade.
+          </p>
+          <div class="cta-box">
+            <p class="cta-text">
+              Quer conhecer como podemos ajudar sua instituição?
+            </p>
+            <a href="/contato" class="cta-button">Entre em contato</a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+  <Footer />
+</Layout>
+
+<style>
+  .page-hero {
+    padding: var(--spacing-16) 0 var(--spacing-8);
+    background-color: var(--color-background-off);
+  }
+  
+  .page-title {
+    font-size: 2.5rem;
+    font-weight: var(--font-weight-bold);
+    color: var(--color-gray-900);
+    text-align: center;
+    margin-bottom: var(--spacing-4);
+  }
+  
+  .page-subtitle {
+    font-size: 1.25rem;
+    color: var(--color-gray-600);
+    text-align: center;
+  }
+  
+  .content-section {
+    padding: var(--spacing-16) 0;
+    background-color: white;
+  }
+  
+  .content-wrapper {
+    max-width: 48rem;
+    margin: 0 auto;
+  }
+  
+  .content-text {
+    font-size: 1.125rem;
+    line-height: 1.75;
+    color: var(--color-gray-600);
+    margin-bottom: var(--spacing-6);
+  }
+  
+  .cta-box {
+    margin-top: var(--spacing-12);
+    padding: var(--spacing-8);
+    background-color: var(--color-background-off);
+    border-radius: var(--radius-xl);
+    text-align: center;
+  }
+  
+  .cta-text {
+    font-size: 1.125rem;
+    line-height: 1.75;
+    color: var(--color-gray-700);
+    margin-bottom: var(--spacing-6);
+  }
+  
+  .cta-button {
+    display: inline-block;
+    padding: var(--spacing-4) var(--spacing-8);
+    background-color: var(--color-institutional);
+    color: white;
+    border-radius: var(--radius-lg);
+    font-weight: var(--font-weight-bold);
+    transition: all var(--transition-base);
+  }
+  
+  .cta-button:hover {
+    background-color: var(--color-institutional-hover);
+  }
+</style>
+
