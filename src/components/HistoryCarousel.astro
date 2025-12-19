@@ -56,12 +56,13 @@ const items = [
     const next = nextEl;
     const track = trackEl;
 
-    /** @param {1 | -1} dir */
-    function scrollByOne(dir) {
-      const firstCard = track.querySelector(".card");
-      const cards = track.querySelector(".cards");
-      if (!(firstCard instanceof HTMLElement)) return;
-      if (!(cards instanceof HTMLElement)) return;
+   /** @param {1 | -1} dir */
+function scrollByOne(dir: 1 | -1) {
+  const firstCard = track.querySelector(".card");
+  const cards = track.querySelector(".cards");
+  if (!(firstCard instanceof HTMLElement)) return;
+  if (!(cards instanceof HTMLElement)) return;
+
 
       const styles = getComputedStyle(cards);
       const gap = parseFloat(styles.columnGap || styles.gap || "0");
