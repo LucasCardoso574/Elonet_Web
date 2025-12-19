@@ -14,22 +14,18 @@ const items = [
     <h2>Nossa História</h2>
 
     <div class="nav">
-      <button class="btn" id="prev" aria-label="Anterior">‹</button>
-      <button class="btn" id="next" aria-label="Próximo">›</button>
+      <button class="btn" id="prev" type="button" aria-label="Anterior">‹</button>
+      <button class="btn" id="next" type="button" aria-label="Próximo">›</button>
     </div>
   </header>
 
-  <div class="container">
-    <div class="scroller" id="scroller" tabindex="0" aria-label="Linha do tempo">
-      <!-- trilho (linha + bolinhas) -->
+  <div class="viewport" id="viewport" tabindex="0" aria-label="Carrossel da linha do tempo">
+    <div class="track" id="track">
       <div class="rail" aria-hidden="true">
         <span class="rail-line"></span>
-        {items.map(() => (
-          <span class="rail-dot"></span>
-        ))}
+        {items.map(() => <span class="rail-dot"></span>)}
       </div>
 
-      <!-- cards (ano + texto) -->
       <div class="cards">
         {items.map((item) => (
           <article class="card">
@@ -43,25 +39,45 @@ const items = [
 </section>
 
 <script>
-  const scroller = document.getElementById("scroller");
-  const prev = document.getElementById("prev");
-  const next = document.getElementById("next");
+  (() => {
+    const viewportEl = document.getElementById("viewport");
+    const prevEl = document.getElementById("prev");
+    const nextEl = document.getElementById("next");
+    const trackEl = document.getElementById("track");
 
-  function scrollByCard(direction) {
-    const card = scroller.querySelector(".card");
-    const cards = scroller.querySelector(".cards");
-    const gap = parseFloat(getComputedStyle(cards).columnGap || getComputedStyle(cards).gap || "0");
-    const step = card.getBoundingClientRect().width + gap;
-    scroller.scrollBy({ left: direction * step, behavior: "smooth" });
-  }
+    
+    if (!(viewportEl instanceof HTMLElement)) return;
+    if (!(prevEl instanceof HTMLButtonElement)) return;
+    if (!(nextEl instanceof HTMLButtonElement)) return;
+    if (!(trackEl instanceof HTMLElement)) return;
 
-  prev.addEventListener("click", () => scrollByCard(-1));
-  next.addEventListener("click", () => scrollByCard(1));
+    const viewport = viewportEl;
+    const prev = prevEl;
+    const next = nextEl;
+    const track = trackEl;
 
-  scroller.addEventListener("keydown", (e) => {
-    if (e.key === "ArrowLeft") scrollByCard(-1);
-    if (e.key === "ArrowRight") scrollByCard(1);
-  });
+    /** @param {1 | -1} dir */
+    function scrollByOne(dir) {
+      const firstCard = track.querySelector(".card");
+      const cards = track.querySelector(".cards");
+      if (!(firstCard instanceof HTMLElement)) return;
+      if (!(cards instanceof HTMLElement)) return;
+
+      const styles = getComputedStyle(cards);
+      const gap = parseFloat(styles.columnGap || styles.gap || "0");
+      const step = firstCard.getBoundingClientRect().width + gap;
+
+      viewport.scrollBy({ left: dir * step, behavior: "smooth" });
+    }
+
+    prev.addEventListener("click", () => scrollByOne(-1));
+    next.addEventListener("click", () => scrollByOne(1));
+
+    viewport.addEventListener("keydown", (e) => {
+      if (e.key === "ArrowLeft") scrollByOne(-1);
+      if (e.key === "ArrowRight") scrollByOne(1);
+    });
+  })();
 </script>
 
 <style>
@@ -71,12 +87,10 @@ const items = [
   --muted: #475569;
   --line: rgba(11, 107, 29, 0.45);
 
-  /* tamanhos para ficar igual ao exemplo azul */
   --dot: 14px;
   --rail-h: 40px;
 
-  /* controle dos cards */
-  --card-w: 260px;
+  --card-w: 280px;
   --gap: 4rem;
 }
 
@@ -103,7 +117,6 @@ const items = [
   color: var(--text);
 }
 
-/* NAV */
 .nav{ display:flex; gap:.75rem; }
 
 .btn{
@@ -119,36 +132,44 @@ const items = [
 }
 .btn:hover{ background: rgba(2,6,23,0.08); color: rgba(2,6,23,0.9); }
 
-.container{ max-width: 1200px; margin: 0 auto; }
+.viewport{
+  max-width: 1200px;
+  margin: 0 auto;
 
-/* SCROLLER */
-.scroller{
   overflow-x:auto;
-  scroll-behavior:smooth;
+  scroll-snap-type: x mandatory;
+  scroll-behavior: smooth;
   -webkit-overflow-scrolling: touch;
+
   padding: 0 18px 18px 18px;
 }
-.scroller::-webkit-scrollbar{ display:none; }
+.viewport::-webkit-scrollbar{ display:none; }
 
-/* ✅ GRID COMPARTILHADO (RAIL E CARDS) */
+
+.track{
+  display: grid;
+  gap: 12px;
+  width: max-content; 
+}
+
+
 .rail,
 .cards{
   display: grid;
   grid-auto-flow: column;
   grid-auto-columns: var(--card-w);
   column-gap: var(--gap);
-  width: max-content; /* vira um “trilho” longo que rola */
+  width: max-content;
 }
 
-/* TRILHO */
+
 .rail{
   position: relative;
   height: var(--rail-h);
   align-items: center;
-  margin-bottom: 10px; /* distância do trilho pro ano */
+  margin-bottom: 10px;
 }
 
-/* linha reta (continua, igual a azul) */
 .rail-line{
   position: absolute;
   left: 0;
@@ -160,26 +181,25 @@ const items = [
   z-index: 0;
 }
 
-/* bolinhas CENTRALIZADAS em cada coluna */
 .rail-dot{
   width: var(--dot);
   height: var(--dot);
   border-radius: 999px;
   background: var(--brand);
-  justify-self: center; /* ✅ centro do “card” */
+  justify-self: center;
   z-index: 1;
 }
 
-/* CARDS */
+
 .card{
   width: var(--card-w);
+  scroll-snap-align: start;
 }
 
 .year{
   font-size: 1.55rem;
   font-weight: 600;
   color: var(--text);
-  text-align: left;
 }
 
 .text{
@@ -190,10 +210,9 @@ const items = [
   max-width: 26ch;
 }
 
-/* RESPONSIVO */
 @media (max-width: 768px){
   :root{
-    --card-w: 230px;
+    --card-w: 240px;
     --gap: 2.5rem;
     --dot: 12px;
   }
