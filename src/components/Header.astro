@@ -1,19 +1,23 @@
 ---
+interface Props {
+  currentPath?: string;
+}
+
+const { currentPath = Astro.url.pathname } = Astro.props;
 ---
 
 <header class="header">
   <div class="header-container">
-    <div class="header-logo">
-      <img src="/images/logo.png" alt="Elonet Habitação" class="logo-image" />
-      
-    </div>
+      <a href="/" class="header-logo">
+        <img src="/images/logo.png" alt="Elonet Habitação" class="logo-image" />
+      </a>
     
     <nav class="header-nav">
-      <a href="/" class="nav-link">Home</a>
-      <a href="/quem-somos" class="nav-link">Quem Somos</a>
-      <a href="/solucoes" class="nav-link">Soluções</a>
-      <a href="/casos-de-sucesso" class="nav-link">Casos de Sucesso</a>
-      <a href="/contato" class="nav-link">Contato</a>
+      <a href="/" class={`nav-link ${currentPath === '/' ? 'active' : ''}`}>Home</a>
+      <a href="/quem-somos" class={`nav-link ${currentPath === '/quem-somos' ? 'active' : ''}`}>Quem Somos</a>
+      <a href="/solucoes" class={`nav-link ${currentPath === '/solucoes' ? 'active' : ''}`}>Soluções</a>
+      <a href="/casos-de-sucesso" class={`nav-link ${currentPath === '/casos-de-sucesso' ? 'active' : ''}`}>Casos de Sucesso</a>
+      <a href="/contato" class={`nav-link ${currentPath === '/contato' ? 'active' : ''}`}>Contato</a>
     </nav>
     
     <div class="header-actions">
@@ -38,7 +42,7 @@
   
   .header-container {
     display: flex;
-    height: 4rem; /* 80% de 5rem */
+    height: 4.5rem; /* 90% de 5rem */
     max-width: var(--container-max-width);
     margin-left: auto;
     margin-right: auto;
@@ -48,11 +52,16 @@
     justify-content: space-between;
   }
   
-  .header-logo {
-    display: flex;
-    align-items: center;
-    gap: var(--spacing-3);
-  }
+      .header-logo {
+        display: flex;
+        align-items: center;
+        gap: var(--spacing-3);
+        transition: opacity var(--transition-fast);
+      }
+      
+      .header-logo:hover {
+        opacity: 0.8;
+      }
   
   .logo-image {
     display: block;
@@ -92,16 +101,42 @@
     }
   }
   
-  .nav-link {
-    font-size: 0.875rem;
-    font-weight: var(--font-weight-medium);
-    color: var(--color-gray-700);
-    transition: color var(--transition-fast);
-  }
-  
-  .nav-link:hover {
-    color: var(--color-institutional);
-  }
+      .nav-link {
+        font-size: 0.9375rem;
+        font-weight: var(--font-weight-semibold);
+        color: var(--color-gray-700);
+        padding: var(--spacing-2) 0;
+        position: relative;
+        transition: color var(--transition-fast);
+      }
+      
+      .nav-link::after {
+        content: '';
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 0;
+        height: 2px;
+        background-color: var(--color-institutional);
+        transition: width var(--transition-base);
+      }
+      
+      .nav-link:hover {
+        color: var(--color-institutional);
+      }
+      
+      .nav-link:hover::after {
+        width: 100%;
+      }
+      
+      .nav-link.active {
+        color: var(--color-institutional);
+        font-weight: var(--font-weight-bold);
+      }
+      
+      .nav-link.active::after {
+        width: 100%;
+      }
   
   .header-actions {
     display: flex;

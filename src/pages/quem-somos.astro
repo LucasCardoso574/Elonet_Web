@@ -5,25 +5,33 @@ import Footer from '../components/Footer.astro';
 ---
 
 <Layout title="Quem Somos - Elonet Habitação">
-  <Header />
+  <Header currentPath={Astro.url.pathname} />
   <main>
     <section class="page-hero">
+      <div class="page-hero-gradient-overlay"></div>
       <div class="container">
         <h1 class="page-title">Quem Somos</h1>
+        <p class="page-subtitle">Mais de 25 anos de experiência no Sistema Financeiro da Habitação</p>
       </div>
     </section>
     
     <section class="content-section">
       <div class="container">
-        <div class="content-wrapper">
-          <h2 class="section-title">A ELONET</h2>
-          <p class="content-text">
-            A ELONET atua no segmento de Habitação e Crédito Imobiliário, oferecendo soluções especializadas nos serviços decorrentes do desdobramento do Sistema Financeiro da Habitação (SFH). Nossa atuação abrange Consultoria, Assessoria, Habilitação, Homologação, Validação e Novação de créditos junto ao FCVS, além da Administração de Carteiras de Crédito Habitacional e Recebíveis Imobiliários, suporte a Construtoras e Regularização/Legalização Fundiária.
-          </p>
-          <p class="content-text">
+        <div class="content-with-image">
+          <div class="content-image" data-aos="fade-up">
+            <img src="/images/reuniao.png" alt="Equipe Elonet em reunião" class="reuniao-image" />
+          </div>
+          <div class="content-wrapper">
+            <h2 class="section-title" data-aos="fade-up">A ELONET</h2>
+            <p class="content-text" data-aos="fade-up" data-aos-delay="100">
+              A ELONET atua no segmento de Habitação e Crédito Imobiliário, oferecendo soluções especializadas nos serviços decorrentes do desdobramento do Sistema Financeiro da Habitação (SFH). Nossa atuação abrange Consultoria, Assessoria, Habilitação, Homologação, Validação e Novação de créditos junto ao FCVS, além da Administração de Carteiras de Crédito Habitacional e Recebíveis Imobiliários, suporte a Construtoras e Regularização/Legalização Fundiária.
+            </p>
+          </div>
+        </div>
+          <p class="content-text" data-aos="fade-up" data-aos-delay="200">
             Fundada em setembro de 1997, a ELONET possui sua Matriz em Brasília, filial no estado de Mato Grosso e estrutura de suporte comercial e técnico nos estados de São Paulo, Alagoas e Pernambuco, garantindo presença nacional e atendimento especializado.
           </p>
-          <p class="content-text">
+          <p class="content-text" data-aos="fade-up" data-aos-delay="300">
             Nosso diferencial está no alto nível técnico do nosso time, composto por profissionais com mais de 24 anos de experiência comprovada em assuntos relacionados, direta e indiretamente, ao SFH, com reconhecida expertise em Administração de Créditos e Recebíveis Imobiliários, FCVS e Regularização Fundiária. Essa trajetória consolidou a ELONET como uma empresa reconhecida pelo profissionalismo, precisão técnica e confiabilidade na condução dos interesses de seus clientes.
           </p>
         </div>
@@ -32,21 +40,21 @@ import Footer from '../components/Footer.astro';
     
     <section class="dna-section">
       <div class="container">
-        <h2 class="section-title">Nosso DNA | Nossa Cultura</h2>
+        <h2 class="section-title" data-aos="fade-up">Nosso DNA | Nossa Cultura</h2>
         <div class="dna-grid">
-          <div class="dna-card">
+          <div class="dna-card" data-aos="fade-up" data-aos-delay="0">
             <h3 class="dna-title">Missão</h3>
             <p class="dna-text">
               Entregar soluções técnicas e estratégicas em habitação e crédito imobiliário, com foco na recuperação de créditos, na conformidade legal e na segurança institucional dos processos, atuando de forma ética, eficiente e orientada a resultados.
             </p>
           </div>
-          <div class="dna-card">
+          <div class="dna-card" data-aos="fade-up" data-aos-delay="100">
             <h3 class="dna-title">Visão</h3>
             <p class="dna-text">
               Ser referência nacional em soluções para o FCVS e o Sistema Financeiro da Habitação, liderando processos de novação até o encerramento definitivo do FCVS em 31/12/2026, com excelência técnica e credibilidade reconhecida pelo mercado.
             </p>
           </div>
-          <div class="dna-card dna-full">
+          <div class="dna-card dna-full" data-aos="fade-up" data-aos-delay="200">
             <h3 class="dna-title">Valores</h3>
             <ul class="values-list">
               <li>Excelência Técnica e Especialização</li>
@@ -64,17 +72,160 @@ import Footer from '../components/Footer.astro';
   <Footer />
 </Layout>
 
+<script>
+  // Preload image and remove skeleton when loaded
+  (function() {
+    const hero = document.querySelector('.page-hero');
+    if (!hero) return;
+    
+    const imageUrl = 'https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?ixlib=rb-4.0.3&auto=format&fit=crop&w=2000&q=80';
+    const img = new Image();
+    img.onload = () => {
+      hero.style.backgroundImage = `url('${imageUrl}')`;
+      hero.classList.add('loaded');
+    };
+    img.src = imageUrl;
+  })();
+</script>
+
+<script is:inline>
+  // Scroll suave para links internos
+  document.addEventListener('DOMContentLoaded', function() {
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function(e) {
+        const href = this.getAttribute('href');
+        if (href && href !== '#') {
+          e.preventDefault();
+          const target = document.querySelector(href);
+          if (target) {
+            const headerOffset = 80;
+            const elementPosition = target.getBoundingClientRect().top;
+            const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
+            
+            window.scrollTo({
+              top: offsetPosition,
+              behavior: 'smooth'
+            });
+          }
+        }
+      });
+    });
+  });
+  
+  // Carregar e inicializar AOS de forma segura
+  window.addEventListener('load', function() {
+    const script = document.createElement('script');
+    script.src = 'https://unpkg.com/aos@2.3.1/dist/aos.js';
+    script.async = true;
+    script.onload = function() {
+      if (typeof AOS !== 'undefined') {
+        AOS.init({
+          duration: 800,
+          easing: 'ease-in-out',
+          once: true,
+          offset: 50,
+          disable: window.innerWidth < 768
+        });
+      }
+    };
+    script.onerror = function() {
+      console.error('Erro ao carregar AOS');
+    };
+    document.head.appendChild(script);
+  });
+</script>
+
 <style>
+  /* Garantir visibilidade inicial dos elementos */
+  [data-aos] {
+    opacity: 1 !important;
+    visibility: visible !important;
+  }
+  
+  /* Quando AOS inicializar, permitir animação de opacidade */
+  body.aos-initialized [data-aos]:not(.aos-animate) {
+    opacity: 0;
+    transition: opacity 0.8s ease-in-out, transform 0.8s ease-in-out;
+  }
+  
+  body.aos-initialized [data-aos].aos-animate {
+    opacity: 1;
+  }
+  
   .page-hero {
-    padding: var(--spacing-16) 0 var(--spacing-8);
-    background-color: var(--color-background-off);
+    position: relative;
+    padding: var(--spacing-16);
+    background-color: var(--color-gray-800);
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    overflow: hidden;
+  }
+  
+  .page-hero::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+      90deg,
+      var(--color-gray-200) 0%,
+      var(--color-gray-100) 50%,
+      var(--color-gray-200) 100%
+    );
+    background-size: 200% 100%;
+    animation: skeleton-loading 1.5s ease-in-out infinite;
+    z-index: 1;
+    transition: opacity 0.5s ease-out;
+  }
+  
+  .page-hero.loaded::after {
+    opacity: 0;
+    pointer-events: none;
+  }
+  
+  .page-hero-gradient-overlay {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to bottom, rgba(15, 35, 15, 0.7), rgba(15, 35, 15, 0.5));
+    z-index: 2;
+    opacity: 0;
+    transition: opacity 0.5s ease-out;
+    pointer-events: none;
+  }
+  
+  .page-hero.loaded .page-hero-gradient-overlay {
+    opacity: 1;
+  }
+  
+  .page-hero .container {
+    position: relative;
+    z-index: 5;
+  }
+  
+  @keyframes skeleton-loading {
+    0% {
+      background-position: 200% 0;
+    }
+    100% {
+      background-position: -200% 0;
+    }
   }
   
   .page-title {
     font-size: 2.5rem;
     font-weight: var(--font-weight-bold);
-    color: var(--color-gray-900);
+    color: white;
     text-align: center;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+    margin-bottom: var(--spacing-4);
+  }
+  
+  .page-subtitle {
+    font-size: 1.25rem;
+    color: white;
+    text-align: center;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
   }
   
   .content-section {
@@ -82,9 +233,48 @@ import Footer from '../components/Footer.astro';
     background-color: white;
   }
   
+  .content-with-image {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--spacing-8);
+    align-items: start;
+  }
+  
+  @media (min-width: 1024px) {
+    .content-with-image {
+      grid-template-columns: 1fr 1fr;
+      gap: var(--spacing-12);
+      align-items: center;
+    }
+  }
+  
+  .content-image {
+    width: 100%;
+    order: 1;
+  }
+  
+  @media (min-width: 1024px) {
+    .content-image {
+      order: 0;
+    }
+  }
+  
+  .reuniao-image {
+    width: 100%;
+    height: auto;
+    border-radius: var(--radius-xl);
+    object-fit: cover;
+  }
+  
   .content-wrapper {
     max-width: 48rem;
     margin: 0 auto;
+  }
+  
+  @media (min-width: 1024px) {
+    .content-wrapper {
+      max-width: none;
+    }
   }
   
   .section-title {

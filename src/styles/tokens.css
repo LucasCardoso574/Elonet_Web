@@ -51,23 +51,23 @@
   --radius-2xl: 1rem; /* 16px */
   --radius-full: 9999px;
   
-  /* Spacing (reduzido para 80%) */
-  --spacing-1: 0.2rem; /* 3.2px */
-  --spacing-2: 0.4rem; /* 6.4px */
-  --spacing-3: 0.6rem; /* 9.6px */
-  --spacing-4: 0.8rem; /* 12.8px */
-  --spacing-5: 1rem; /* 16px */
-  --spacing-6: 1.2rem; /* 19.2px */
-  --spacing-8: 1.6rem; /* 25.6px */
-  --spacing-10: 2rem; /* 32px */
-  --spacing-12: 2.4rem; /* 38.4px */
-  --spacing-16: 3.2rem; /* 51.2px */
-  --spacing-20: 4rem; /* 64px */
-  --spacing-24: 4.8rem; /* 76.8px */
+  /* Spacing (reduzido para 90%) */
+  --spacing-1: 0.225rem; /* 3.6px */
+  --spacing-2: 0.45rem; /* 7.2px */
+  --spacing-3: 0.675rem; /* 10.8px */
+  --spacing-4: 0.9rem; /* 14.4px */
+  --spacing-5: 1.125rem; /* 18px */
+  --spacing-6: 1.35rem; /* 21.6px */
+  --spacing-8: 1.8rem; /* 28.8px */
+  --spacing-10: 2.25rem; /* 36px */
+  --spacing-12: 2.7rem; /* 43.2px */
+  --spacing-16: 3.6rem; /* 57.6px */
+  --spacing-20: 4.5rem; /* 72px */
+  --spacing-24: 5.4rem; /* 86.4px */
   
   /* Container */
-  --container-max-width: 64rem; /* 1024px */
-  --container-padding: 1.2rem; /* 19.2px */
+  --container-max-width: 72rem; /* 1152px - 90% */
+  --container-padding: 1.35rem; /* 21.6px - 90% */
   
   /* Shadows */
   --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);

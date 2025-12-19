@@ -7,9 +7,10 @@
 }
 
 html {
-  font-size: 12.8px; /* 80% de 16px - reduz proporção geral do site */
+  font-size: 14.4px; /* 90% de 16px - reduz proporção geral do site */
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  scroll-behavior: smooth;
 }
 
 body {

@@ -5,31 +5,33 @@ import Footer from '../components/Footer.astro';
 ---
 
 <Layout title="Soluções - Elonet Habitação">
-  <Header />
+  <Header currentPath={Astro.url.pathname} />
   <main>
     <section class="page-hero">
+      <div class="page-hero-gradient-overlay"></div>
       <div class="container">
         <h1 class="page-title">Soluções</h1>
+        <p class="page-subtitle">Especialistas em FCVS, Novação de Créditos e Regularização Fundiária</p>
       </div>
     </section>
     
     <section class="content-section">
       <div class="container">
         <div class="content-wrapper">
-          <h2 class="section-title">Contexto FCVS</h2>
-          <p class="content-text">
+          <h2 class="section-title" data-aos="fade-up">Contexto FCVS</h2>
+          <p class="content-text" data-aos="fade-up" data-aos-delay="0">
             Todos os Agentes Financeiros detentores de créditos junto ao FCVS enfrentam, até 31 de dezembro de 2026, um desafio decisivo: o prazo final para que o Tesouro Nacional promova as Novações e encerre definitivamente o Fundo de Compensação de Variações Salariais – FCVS.
           </p>
-          <p class="content-text">
+          <p class="content-text" data-aos="fade-up" data-aos-delay="100">
             Desde 1997, os Agentes Financeiros e demais entes envolvidos no processo de novação dispuseram de aproximadamente 30 anos para promover o acerto de contas decorrente do resíduo gerado pelo descompasso entre os índices de correção monetária e os reajustes aplicados às prestações dos contratos habitacionais.
           </p>
-          <p class="content-text">
+          <p class="content-text" data-aos="fade-up" data-aos-delay="200">
             Entretanto, ao longo desse período, as sucessivas alterações no MNPO, instrumento responsável por regulamentar toda a esteira operacional do FCVS — Habilitação, Homologação, Validação e Novação — impactaram de forma significativa a eficiência do processo.
           </p>
-          <p class="content-text">
+          <p class="content-text" data-aos="fade-up" data-aos-delay="300">
             Tais mudanças resultaram em entraves operacionais que afetaram não apenas os Agentes Financeiros, mas também os demais entes envolvidos, como CAIXA, Centralizadoras, CGU e PGFN.
           </p>
-          <p class="content-text">
+          <p class="content-text" data-aos="fade-up" data-aos-delay="400">
             Como consequência, verificou-se um afunilamento expressivo dos contratos encaminhados para análise e auditoria, comprometendo o avanço das operações e gerando prejuízos irreversíveis aos Credores do Fundo.
           </p>
         </div>
@@ -38,28 +40,28 @@ import Footer from '../components/Footer.astro';
     
     <section class="phases-section">
       <div class="container">
-        <h2 class="section-title">Fases do Processo FCVS</h2>
-        <p class="section-subtitle">
+        <h2 class="section-title" data-aos="fade-up">Fases do Processo FCVS</h2>
+        <p class="section-subtitle" data-aos="fade-up" data-aos-delay="100">
           Os Agentes Operadores do FGTS foram — e continuam sendo — diretamente impactados pela morosidade da esteira operacional do FCVS, mantendo contratos posicionados em diferentes estágios do processo:
         </p>
         <div class="phases-grid">
-          <div class="phase-card">
+          <div class="phase-card" data-aos="fade-up" data-aos-delay="0">
             <h3 class="phase-title">Fase Embrionária</h3>
             <p class="phase-text">Contratos que sequer iniciaram os trabalhos de habilitação.</p>
           </div>
-          <div class="phase-card">
+          <div class="phase-card" data-aos="fade-up" data-aos-delay="100">
             <h3 class="phase-title">Fase Inicial</h3>
             <p class="phase-text">Processos aguardando a primeira análise pela Centralizadora.</p>
           </div>
-          <div class="phase-card">
+          <div class="phase-card" data-aos="fade-up" data-aos-delay="200">
             <h3 class="phase-title">Fase Intermediária</h3>
             <p class="phase-text">Elaboração e envio de recursos para contratos com negativa de cobertura.</p>
           </div>
-          <div class="phase-card">
+          <div class="phase-card" data-aos="fade-up" data-aos-delay="300">
             <h3 class="phase-title">Fase Pré-Novação</h3>
             <p class="phase-text">Contratos aguardando auditoria.</p>
           </div>
-          <div class="phase-card">
+          <div class="phase-card" data-aos="fade-up" data-aos-delay="400">
             <h3 class="phase-title">Fase Final</h3>
             <p class="phase-text">Contratos aptos à Novação dos Créditos.</p>
           </div>
@@ -76,17 +78,161 @@ import Footer from '../components/Footer.astro';
   <Footer />
 </Layout>
 
+<script>
+  // Preload image and remove skeleton when loaded
+  (function() {
+    const hero = document.querySelector('.page-hero');
+    if (!hero) return;
+    
+    const imageUrl = 'https://plus.unsplash.com/premium_photo-1672423154405-5fd922c11af2?q=80&w=2000&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D';
+    const img = new Image();
+    img.onload = () => {
+      hero.style.backgroundImage = `url('${imageUrl}')`;
+      hero.classList.add('loaded');
+    };
+    img.src = imageUrl;
+  })();
+</script>
+
+<script is:inline>
+  // Scroll suave para links internos
+  document.addEventListener('DOMContentLoaded', function() {
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function(e) {
+        const href = this.getAttribute('href');
+        if (href && href !== '#') {
+          e.preventDefault();
+          const target = document.querySelector(href);
+          if (target) {
+            const headerOffset = 80;
+            const elementPosition = target.getBoundingClientRect().top;
+            const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
+            
+            window.scrollTo({
+              top: offsetPosition,
+              behavior: 'smooth'
+            });
+          }
+        }
+      });
+    });
+  });
+  
+  // Carregar e inicializar AOS de forma segura
+  window.addEventListener('load', function() {
+    const script = document.createElement('script');
+    script.src = 'https://unpkg.com/aos@2.3.1/dist/aos.js';
+    script.async = true;
+    script.onload = function() {
+      if (typeof AOS !== 'undefined') {
+        AOS.init({
+          duration: 800,
+          easing: 'ease-in-out',
+          once: true,
+          offset: 50,
+          disable: window.innerWidth < 768
+        });
+      }
+    };
+    script.onerror = function() {
+      console.error('Erro ao carregar AOS');
+    };
+    document.head.appendChild(script);
+  });
+</script>
+
 <style>
+  /* Garantir visibilidade inicial dos elementos */
+  [data-aos] {
+    opacity: 1 !important;
+    visibility: visible !important;
+  }
+  
+  /* Quando AOS inicializar, permitir animação de opacidade */
+  body.aos-initialized [data-aos]:not(.aos-animate) {
+    opacity: 0;
+    transition: opacity 0.8s ease-in-out, transform 0.8s ease-in-out;
+  }
+  
+  body.aos-initialized [data-aos].aos-animate {
+    opacity: 1;
+  }
+  
   .page-hero {
-    padding: var(--spacing-16) 0 var(--spacing-8);
-    background-color: var(--color-background-off);
+    position: relative;
+    padding: var(--spacing-16);
+    background-color: var(--color-gray-800);
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    overflow: hidden;
+  }
+  
+  .page-hero::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+      90deg,
+      var(--color-gray-200) 0%,
+      var(--color-gray-100) 50%,
+      var(--color-gray-200) 100%
+    );
+    background-size: 200% 100%;
+    animation: skeleton-loading 1.5s ease-in-out infinite;
+    z-index: 1;
+    transition: opacity 0.5s ease-out;
+  }
+  
+  .page-hero.loaded::after {
+    opacity: 0;
+    pointer-events: none;
+  }
+  
+  
+  .page-hero-gradient-overlay {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to bottom, rgba(15, 35, 15, 0.7), rgba(15, 35, 15, 0.5));
+    z-index: 2;
+    opacity: 0;
+    transition: opacity 0.5s ease-out;
+    pointer-events: none;
+  }
+  
+  .page-hero.loaded .page-hero-gradient-overlay {
+    opacity: 1;
+  }
+  
+  .page-hero .container {
+    position: relative;
+    z-index: 5;
+  }
+  
+  @keyframes skeleton-loading {
+    0% {
+      background-position: 200% 0;
+    }
+    100% {
+      background-position: -200% 0;
+    }
   }
   
   .page-title {
     font-size: 2.5rem;
     font-weight: var(--font-weight-bold);
-    color: var(--color-gray-900);
+    color: white;
     text-align: center;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+    margin-bottom: var(--spacing-4);
+  }
+  
+  .page-subtitle {
+    font-size: 1.25rem;
+    color: white;
+    text-align: center;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
   }
   
   .content-section {
@@ -184,15 +330,15 @@ import Footer from '../components/Footer.astro';
   .cta-button {
     display: inline-block;
     padding: var(--spacing-4) var(--spacing-8);
-    background-color: var(--color-primary);
-    color: var(--color-institutional);
+    background-color: var(--color-institutional);
+    color: white;
     border-radius: var(--radius-lg);
     font-weight: var(--font-weight-bold);
     transition: all var(--transition-base);
   }
   
   .cta-button:hover {
-    background-color: var(--color-green-300);
+    background-color: var(--color-institutional-hover);
   }
 </style>
 

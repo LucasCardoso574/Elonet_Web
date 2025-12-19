@@ -5,9 +5,10 @@ import Footer from '../components/Footer.astro';
 ---
 
 <Layout title="Contato - Elonet Habitação">
-  <Header />
+  <Header currentPath={Astro.url.pathname} />
   <main>
     <section class="page-hero">
+      <div class="page-hero-gradient-overlay"></div>
       <div class="container">
         <h1 class="page-title">Contato</h1>
         <p class="page-subtitle">Fale com um especialista</p>
@@ -17,27 +18,27 @@ import Footer from '../components/Footer.astro';
     <section class="contact-section">
       <div class="container">
         <div class="contact-grid">
-          <div class="contact-info">
+          <div class="contact-info" data-aos="fade-up">
             <h2 class="section-title">Entre em contato</h2>
-            <p class="contact-text">
+            <p class="contact-text" data-aos="fade-up" data-aos-delay="100">
               Preencha o formulário ou entre em contato diretamente via WhatsApp. Nossa equipe técnica está pronta para avaliar sua demanda e apresentar soluções personalizadas.
             </p>
             <div class="contact-methods">
-              <a href="https://wa.me/5511999999999?text=Olá,%20gostaria%20de%20falar%20com%20um%20especialista" class="contact-method">
+              <a href="https://wa.me/5511999999999?text=Olá,%20gostaria%20de%20falar%20com%20um%20especialista" class="contact-method" data-aos="fade-up" data-aos-delay="0">
                 <span class="material-symbols-outlined">chat</span>
                 <div>
                   <strong>WhatsApp</strong>
                   <span>Atendimento direto</span>
                 </div>
               </a>
-              <div class="contact-method">
+              <div class="contact-method" data-aos="fade-up" data-aos-delay="100">
                 <span class="material-symbols-outlined">mail</span>
                 <div>
                   <strong>E-mail</strong>
                   <span>contato@elonet.com.br</span>
                 </div>
               </div>
-              <div class="contact-method">
+              <div class="contact-method" data-aos="fade-up" data-aos-delay="200">
                 <span class="material-symbols-outlined">call</span>
                 <div>
                   <strong>Telefone</strong>
@@ -47,7 +48,7 @@ import Footer from '../components/Footer.astro';
             </div>
           </div>
           
-          <form class="contact-form">
+          <form class="contact-form" data-aos="fade-up" data-aos-delay="200">
             <div class="form-group">
               <label for="nome">Nome</label>
               <input type="text" id="nome" name="nome" required />
@@ -69,24 +70,160 @@ import Footer from '../components/Footer.astro';
   <Footer />
 </Layout>
 
+<script>
+  // Preload image and remove skeleton when loaded
+  (function() {
+    const hero = document.querySelector('.page-hero');
+    if (!hero) return;
+    
+    const imageUrl = 'https://unsplash.com/photos/fOxhlF8SCt4/download?force=true&w=2000';
+    const img = new Image();
+    img.onload = () => {
+      hero.style.backgroundImage = `url('${imageUrl}')`;
+      hero.classList.add('loaded');
+    };
+    img.src = imageUrl;
+  })();
+</script>
+
+<script is:inline>
+  // Scroll suave para links internos
+  document.addEventListener('DOMContentLoaded', function() {
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function(e) {
+        const href = this.getAttribute('href');
+        if (href && href !== '#') {
+          e.preventDefault();
+          const target = document.querySelector(href);
+          if (target) {
+            const headerOffset = 80;
+            const elementPosition = target.getBoundingClientRect().top;
+            const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
+            
+            window.scrollTo({
+              top: offsetPosition,
+              behavior: 'smooth'
+            });
+          }
+        }
+      });
+    });
+  });
+  
+  // Carregar e inicializar AOS de forma segura
+  window.addEventListener('load', function() {
+    const script = document.createElement('script');
+    script.src = 'https://unpkg.com/aos@2.3.1/dist/aos.js';
+    script.async = true;
+    script.onload = function() {
+      if (typeof AOS !== 'undefined') {
+        AOS.init({
+          duration: 800,
+          easing: 'ease-in-out',
+          once: true,
+          offset: 50,
+          disable: window.innerWidth < 768
+        });
+      }
+    };
+    script.onerror = function() {
+      console.error('Erro ao carregar AOS');
+    };
+    document.head.appendChild(script);
+  });
+</script>
+
 <style>
+  /* Garantir visibilidade inicial dos elementos */
+  [data-aos] {
+    opacity: 1 !important;
+    visibility: visible !important;
+  }
+  
+  /* Quando AOS inicializar, permitir animação de opacidade */
+  body.aos-initialized [data-aos]:not(.aos-animate) {
+    opacity: 0;
+    transition: opacity 0.8s ease-in-out, transform 0.8s ease-in-out;
+  }
+  
+  body.aos-initialized [data-aos].aos-animate {
+    opacity: 1;
+  }
+  
   .page-hero {
-    padding: var(--spacing-16) 0 var(--spacing-8);
-    background-color: var(--color-background-off);
+    position: relative;
+    padding: var(--spacing-16);
+    background-color: var(--color-gray-800);
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    overflow: hidden;
+  }
+  
+  .page-hero::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+      90deg,
+      var(--color-gray-200) 0%,
+      var(--color-gray-100) 50%,
+      var(--color-gray-200) 100%
+    );
+    background-size: 200% 100%;
+    animation: skeleton-loading 1.5s ease-in-out infinite;
+    z-index: 1;
+    transition: opacity 0.5s ease-out;
+  }
+  
+  .page-hero.loaded::after {
+    opacity: 0;
+    pointer-events: none;
+  }
+  
+  .page-hero-gradient-overlay {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to bottom, rgba(15, 35, 15, 0.7), rgba(15, 35, 15, 0.5));
+    z-index: 2;
+    opacity: 0;
+    transition: opacity 0.5s ease-out;
+    pointer-events: none;
+  }
+  
+  .page-hero.loaded .page-hero-gradient-overlay {
+    opacity: 1;
+  }
+  
+  .page-hero .container {
+    position: relative;
+    z-index: 5;
+  }
+  
+  @keyframes skeleton-loading {
+    0% {
+      background-position: 200% 0;
+    }
+    100% {
+      background-position: -200% 0;
+    }
   }
   
   .page-title {
     font-size: 2.5rem;
     font-weight: var(--font-weight-bold);
-    color: var(--color-gray-900);
+    color: white;
     text-align: center;
     margin-bottom: var(--spacing-4);
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
   }
   
   .page-subtitle {
     font-size: 1.25rem;
-    color: var(--color-gray-600);
+    color: white;
     text-align: center;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
   }
   
   .contact-section {

@@ -10,29 +10,37 @@ const items = [
 ---
 
 <section class="history">
-  <header class="header">
+  <header class="header" data-aos="fade-up">
     <h2>Nossa História</h2>
 
     <div class="nav">
-      <button class="btn" id="prev" type="button" aria-label="Anterior">‹</button>
-      <button class="btn" id="next" type="button" aria-label="Próximo">›</button>
+      <button class="btn" id="prev" type="button" aria-label="Anterior">
+        <span class="material-symbols-outlined">chevron_left</span>
+      </button>
+      <button class="btn" id="next" type="button" aria-label="Próximo">
+        <span class="material-symbols-outlined">chevron_right</span>
+      </button>
     </div>
   </header>
 
-  <div class="viewport" id="viewport" tabindex="0" aria-label="Carrossel da linha do tempo">
-    <div class="track" id="track">
-      <div class="rail" aria-hidden="true">
-        <span class="rail-line"></span>
-        {items.map(() => <span class="rail-dot"></span>)}
-      </div>
+  <div class="container">
+    <div class="viewport" id="viewport" tabindex="0" aria-label="Carrossel da linha do tempo" data-aos="fade-up" data-aos-delay="100">
+      <div class="track" id="track">
+        <div class="rail" aria-hidden="true">
+          <span class="rail-line"></span>
+          {items.map((_, index) => (
+            <span class="rail-dot" data-aos="fade-up" data-aos-delay={150 + (index * 50)}></span>
+          ))}
+        </div>
 
-      <div class="cards">
-        {items.map((item) => (
-          <article class="card">
-            <div class="year">{item.year}</div>
-            <p class="text">{item.text}</p>
-          </article>
-        ))}
+        <div class="cards">
+          {items.map((item, index) => (
+            <article class="card" data-aos="fade-up" data-aos-delay={200 + (index * 50)}>
+              <div class="year">{item.year}</div>
+              <p class="text">{item.text}</p>
+            </article>
+          ))}
+        </div>
       </div>
     </div>
   </div>
@@ -70,13 +78,79 @@ const items = [
       viewport.scrollBy({ left: dir * step, behavior: "smooth" });
     }
 
-    prev.addEventListener("click", () => scrollByOne(-1));
-    next.addEventListener("click", () => scrollByOne(1));
+    prev.addEventListener("click", () => {
+      stopAutoScroll();
+      scrollByOne(-1);
+    });
+    
+    next.addEventListener("click", () => {
+      stopAutoScroll();
+      scrollByOne(1);
+    });
 
     viewport.addEventListener("keydown", (e) => {
       if (e.key === "ArrowLeft") scrollByOne(-1);
       if (e.key === "ArrowRight") scrollByOne(1);
     });
+
+    // Auto-scroll suave e contínuo como vitrine usando requestAnimationFrame
+    let animationFrameId = null;
+    let isPaused = false;
+    let scrollSpeed = 1.2; // pixels por frame (aumentado de 0.8 para 1.2)
+
+    // Função para parar a animação automática
+    function stopAutoScroll() {
+      if (animationFrameId) {
+        cancelAnimationFrame(animationFrameId);
+        animationFrameId = null;
+      }
+    }
+
+    function animateScroll() {
+      if (isPaused) {
+        animationFrameId = requestAnimationFrame(animateScroll);
+        return;
+      }
+      
+      const cards = track.querySelector(".cards");
+      if (!(cards instanceof HTMLElement)) {
+        animationFrameId = requestAnimationFrame(animateScroll);
+        return;
+      }
+      
+      const maxScroll = cards.scrollWidth - viewport.clientWidth;
+      const currentScroll = viewport.scrollLeft;
+      
+      // Se chegou no final, para a animação
+      if (currentScroll >= maxScroll - 1) {
+        stopAutoScroll();
+      } else {
+        // Scroll contínuo e suave
+        viewport.scrollLeft += scrollSpeed;
+      }
+      
+      animationFrameId = requestAnimationFrame(animateScroll);
+    }
+
+    // Pausar apenas quando hover nos botões (não no viewport)
+    prev.addEventListener("mouseenter", () => {
+      isPaused = true;
+    });
+
+    next.addEventListener("mouseenter", () => {
+      isPaused = true;
+    });
+
+    prev.addEventListener("mouseleave", () => {
+      isPaused = false;
+    });
+
+    next.addEventListener("mouseleave", () => {
+      isPaused = false;
+    });
+
+    // Iniciar animação imediatamente
+    animateScroll();
   })();
 </script>
 
@@ -120,24 +194,41 @@ const items = [
 .nav{ display:flex; gap:.75rem; }
 
 .btn{
-  width: 44px;
-  height: 44px;
+  width: 48px;
+  height: 48px;
   border-radius: 999px;
-  border: 1px solid rgba(2,6,23,0.10);
-  background: rgba(2,6,23,0.05);
-  color: rgba(2,6,23,0.65);
-  font-size: 28px;
-  cursor:pointer;
-  transition: 150ms ease;
+  border: none;
+  background: var(--brand);
+  color: white;
+  font-size: 0;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 200ms ease;
+  box-shadow: 0 2px 8px rgba(11, 107, 29, 0.2);
 }
-.btn:hover{ background: rgba(2,6,23,0.08); color: rgba(2,6,23,0.9); }
+
+.btn .material-symbols-outlined {
+  font-size: 28px;
+  font-variation-settings: 'FILL' 1;
+}
+
+.btn:hover {
+  background: var(--color-institutional-hover, #004d00);
+  box-shadow: 0 4px 12px rgba(11, 107, 29, 0.3);
+  transform: translateY(-1px);
+}
+
+.btn:active {
+  transform: translateY(0);
+  box-shadow: 0 2px 6px rgba(11, 107, 29, 0.25);
+}
+
+.container{ max-width: 1200px; margin: 0 auto; }
 
 .viewport{
-  max-width: 1200px;
-  margin: 0 auto;
-
   overflow-x:auto;
-  scroll-snap-type: x mandatory;
   scroll-behavior: smooth;
   -webkit-overflow-scrolling: touch;
 
@@ -193,7 +284,6 @@ const items = [
 
 .card{
   width: var(--card-w);
-  scroll-snap-align: start;
 }
 
 .year{

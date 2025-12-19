@@ -1,7 +1,6 @@
 ---
 import Layout from '../layouts/Layout.astro';
 import Header from '../components/Header.astro';
-import FloatingAlert from '../components/FloatingAlert.astro';
 import Hero from '../components/Hero.astro';
 import FCVSAlert from '../components/FCVSAlert.astro';
 import StatsBar from '../components/StatsBar.astro';
@@ -12,15 +11,91 @@ import Footer from '../components/Footer.astro';
 ---
 
 <Layout>
-  <Header />
-  <FloatingAlert />
+  <Header currentPath={Astro.url.pathname} />
   <main>
-    <Hero />
-    <StatsBar />
-    <FCVSAlert />
-    <HistoryCarousel />
-    <WhyUs />
-    <FinalCTA />
+    <section id="hero-section">
+      <Hero />
+    </section>
+    <section id="stats-section">
+      <StatsBar />
+    </section>
+    <section id="fcvs-section">
+      <FCVSAlert />
+    </section>
+    <section id="history-section">
+      <HistoryCarousel />
+    </section>
+    <section id="why-us-section">
+      <WhyUs />
+    </section>
+    <section id="cta-section">
+      <FinalCTA />
+    </section>
   </main>
   <Footer />
 </Layout>
+
+<script is:inline>
+  // Scroll suave para links internos
+  document.addEventListener('DOMContentLoaded', function() {
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function(e) {
+        const href = this.getAttribute('href');
+        if (href && href !== '#') {
+          e.preventDefault();
+          const target = document.querySelector(href);
+          if (target) {
+            const headerOffset = 80;
+            const elementPosition = target.getBoundingClientRect().top;
+            const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
+            
+            window.scrollTo({
+              top: offsetPosition,
+              behavior: 'smooth'
+            });
+          }
+        }
+      });
+    });
+  });
+  
+  // Carregar e inicializar AOS de forma segura
+  window.addEventListener('load', function() {
+    const script = document.createElement('script');
+    script.src = 'https://unpkg.com/aos@2.3.1/dist/aos.js';
+    script.async = true;
+    script.onload = function() {
+      if (typeof AOS !== 'undefined') {
+        AOS.init({
+          duration: 800,
+          easing: 'ease-in-out',
+          once: true,
+          offset: 50,
+          disable: window.innerWidth < 768
+        });
+      }
+    };
+    script.onerror = function() {
+      console.error('Erro ao carregar AOS');
+    };
+    document.head.appendChild(script);
+  });
+</script>
+
+<style>
+  /* Garantir visibilidade inicial dos elementos */
+  [data-aos] {
+    opacity: 1 !important;
+    visibility: visible !important;
+  }
+  
+  /* Quando AOS inicializar, permitir animação de opacidade */
+  body.aos-initialized [data-aos]:not(.aos-animate) {
+    opacity: 0;
+    transition: opacity 0.8s ease-in-out, transform 0.8s ease-in-out;
+  }
+  
+  body.aos-initialized [data-aos].aos-animate {
+    opacity: 1;
+  }
+</style>
