@@ -1,177 +1,202 @@
 ---
-const milestones = [
-  {
-    year: "1997",
-    title: "Fundação da Elonet Habitação",
-    description: "Início das atividades com foco técnico no Sistema Financeiro da Habitação, atuando na análise e gestão de crédito habitacional.",
-    icon: "business"
-  },
-  {
-    year: "2000",
-    title: "Especialização em Crédito Habitacional e FCVS",
-    description: "Consolidação da atuação técnica em contratos habitacionais e no Fundo de Compensação de Variações Salariais, acompanhando a evolução normativa do setor.",
-    icon: "trending_up"
-  },
-  {
-    year: "2005",
-    title: "Estruturação de Processos Técnicos e Operacionais",
-    description: "Desenvolvimento de metodologia própria para análise, habilitação e organização de carteiras de crédito habitacional.",
-    icon: "settings"
-  },
-  {
-    year: "2010",
-    title: "Atuação Ampliada em Consultoria e Assessoria Técnica",
-    description: "Expansão dos serviços de consultoria especializada, apoiando instituições financeiras em processos complexos e regulatórios.",
-    icon: "groups"
-  },
-  {
-    year: "2015",
-    title: "Expansão da Atuação Nacional",
-    description: "Atendimento a instituições em diferentes regiões do país, com presença consolidada em múltiplos estados.",
-    icon: "public"
-  },
-  {
-    year: "2020",
-    title: "Reconhecimento pela Experiência Técnica e Confiabilidade",
-    description: "Fortalecimento da reputação no mercado pela condução técnica consistente e pelo suporte estratégico aos agentes financeiros.",
-    icon: "verified"
-  },
-  {
-    year: "2024",
-    title: "FCVS: Preparação para o Encerramento do Fundo",
-    description: "Atuação estratégica voltada ao diagnóstico de carteiras e à condução dos processos de novação diante do prazo final de 31/12/2026.",
-    icon: "schedule"
-  },
-  {
-    year: "2026",
-    title: "Marco Final: Novação e Encerramento do FCVS",
-    description: "Apoio técnico às instituições no enfrentamento do maior desafio do SFH nas últimas décadas, com foco na viabilização da novação dos créditos.",
-    icon: "flag"
-  }
+const items = [
+  { year: "1997", text: "Fundação da empresa e início das operações no setor financeiro habitacional." },
+  { year: "2005", text: "Expansão da atuação e consolidação da presença nacional." },
+  { year: "2010", text: "Crescimento do portfólio e fortalecimento dos processos internos." },
+  { year: "2015", text: "Modernização tecnológica e evolução das soluções digitais." },
+  { year: "2020", text: "Consolidação no mercado com foco em eficiência e escala." },
+  { year: "2025", text: "Atuação sólida orientada por inovação, qualidade e segurança." }
 ];
 ---
 
-<section class="history-section">
+<section class="history">
+  <header class="header">
+    <h2>Nossa História</h2>
+
+    <div class="nav">
+      <button class="btn" id="prev" aria-label="Anterior">‹</button>
+      <button class="btn" id="next" aria-label="Próximo">›</button>
+    </div>
+  </header>
+
   <div class="container">
-    <h2 class="history-title">Nossa Jornada</h2>
-    <div class="history-carousel">
-      {milestones.map((milestone) => (
-        <div class="milestone-card">
-          <div class="milestone-year">{milestone.year}</div>
-          <div class="milestone-icon">
-            <span class="material-symbols-outlined">{milestone.icon}</span>
-          </div>
-          <h3 class="milestone-title">{milestone.title}</h3>
-          <p class="milestone-description">{milestone.description}</p>
-          <a href="/quem-somos" class="milestone-link">Saiba mais</a>
-        </div>
-      ))}
+    <div class="scroller" id="scroller" tabindex="0" aria-label="Linha do tempo">
+      <!-- trilho (linha + bolinhas) -->
+      <div class="rail" aria-hidden="true">
+        <span class="rail-line"></span>
+        {items.map(() => (
+          <span class="rail-dot"></span>
+        ))}
+      </div>
+
+      <!-- cards (ano + texto) -->
+      <div class="cards">
+        {items.map((item) => (
+          <article class="card">
+            <div class="year">{item.year}</div>
+            <p class="text">{item.text}</p>
+          </article>
+        ))}
+      </div>
     </div>
   </div>
 </section>
 
-<style>
-  .history-section {
-    padding: var(--spacing-24) 0;
-    background-color: white;
-  }
-  
-  .history-title {
-    font-size: 2rem;
-    font-weight: var(--font-weight-bold);
-    text-align: center;
-    margin-bottom: var(--spacing-16);
-    color: var(--color-gray-900);
-  }
-  
-  @media (min-width: 640px) {
-    .history-title {
-      font-size: 2.5rem;
-    }
-  }
-  
-  .history-carousel {
-    display: grid;
-    grid-template-columns: 1fr;
-    gap: var(--spacing-6);
-    max-width: 80rem;
-    margin: 0 auto;
-  }
-  
-  @media (min-width: 640px) {
-    .history-carousel {
-      grid-template-columns: repeat(2, 1fr);
-    }
-  }
-  
-  @media (min-width: 1024px) {
-    .history-carousel {
-      grid-template-columns: repeat(4, 1fr);
-    }
-  }
-  
-  .milestone-card {
-    padding: var(--spacing-6);
-    border: 1px solid var(--color-gray-200);
-    border-radius: var(--radius-lg);
-    background-color: white;
-    transition: all var(--transition-base);
-    display: flex;
-    flex-direction: column;
-  }
-  
-  .milestone-card:hover {
-    border-color: var(--color-institutional);
-  }
-  
-  .milestone-year {
-    font-size: 1.5rem;
-    font-weight: var(--font-weight-bold);
-    color: var(--color-institutional);
-    margin-bottom: var(--spacing-4);
-  }
-  
-  .milestone-icon {
-    display: inline-flex;
-    width: 3rem;
-    height: 3rem;
-    align-items: center;
-    justify-content: center;
-    border-radius: var(--radius-lg);
-    background-color: var(--color-green-50);
-    color: var(--color-institutional);
-    margin-bottom: var(--spacing-4);
-  }
-  
-  .milestone-icon .material-symbols-outlined {
-    font-size: 1.5rem;
-  }
-  
-  .milestone-title {
-    font-size: 1.125rem;
-    font-weight: var(--font-weight-bold);
-    color: var(--color-gray-900);
-    margin-bottom: var(--spacing-3);
-  }
-  
-  .milestone-description {
-    font-size: 0.875rem;
-    color: var(--color-gray-600);
-    line-height: 1.75;
-    margin-bottom: var(--spacing-4);
-    flex: 1;
-  }
-  
-  .milestone-link {
-    display: inline-block;
-    font-size: 0.875rem;
-    font-weight: var(--font-weight-semibold);
-    color: var(--color-institutional);
-    transition: color var(--transition-fast);
-  }
-  
-  .milestone-link:hover {
-    color: var(--color-institutional-hover);
-  }
-</style>
+<script>
+  const scroller = document.getElementById("scroller");
+  const prev = document.getElementById("prev");
+  const next = document.getElementById("next");
 
+  function scrollByCard(direction) {
+    const card = scroller.querySelector(".card");
+    const cards = scroller.querySelector(".cards");
+    const gap = parseFloat(getComputedStyle(cards).columnGap || getComputedStyle(cards).gap || "0");
+    const step = card.getBoundingClientRect().width + gap;
+    scroller.scrollBy({ left: direction * step, behavior: "smooth" });
+  }
+
+  prev.addEventListener("click", () => scrollByCard(-1));
+  next.addEventListener("click", () => scrollByCard(1));
+
+  scroller.addEventListener("keydown", (e) => {
+    if (e.key === "ArrowLeft") scrollByCard(-1);
+    if (e.key === "ArrowRight") scrollByCard(1);
+  });
+</script>
+
+<style>
+:root{
+  --brand: #0B6B1D;
+  --text: #0b1220;
+  --muted: #475569;
+  --line: rgba(11, 107, 29, 0.45);
+
+  /* tamanhos para ficar igual ao exemplo azul */
+  --dot: 14px;
+  --rail-h: 40px;
+
+  /* controle dos cards */
+  --card-w: 260px;
+  --gap: 4rem;
+}
+
+.history{
+  padding: 5rem 1rem;
+  background: #fff;
+  font-family: system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
+}
+
+.header{
+  max-width: 1200px;
+  margin: 0 auto 2.25rem auto;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap: 1rem;
+}
+
+.header h2{
+  margin: 0;
+  font-size: 2.2rem;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  color: var(--text);
+}
+
+/* NAV */
+.nav{ display:flex; gap:.75rem; }
+
+.btn{
+  width: 44px;
+  height: 44px;
+  border-radius: 999px;
+  border: 1px solid rgba(2,6,23,0.10);
+  background: rgba(2,6,23,0.05);
+  color: rgba(2,6,23,0.65);
+  font-size: 28px;
+  cursor:pointer;
+  transition: 150ms ease;
+}
+.btn:hover{ background: rgba(2,6,23,0.08); color: rgba(2,6,23,0.9); }
+
+.container{ max-width: 1200px; margin: 0 auto; }
+
+/* SCROLLER */
+.scroller{
+  overflow-x:auto;
+  scroll-behavior:smooth;
+  -webkit-overflow-scrolling: touch;
+  padding: 0 18px 18px 18px;
+}
+.scroller::-webkit-scrollbar{ display:none; }
+
+/* ✅ GRID COMPARTILHADO (RAIL E CARDS) */
+.rail,
+.cards{
+  display: grid;
+  grid-auto-flow: column;
+  grid-auto-columns: var(--card-w);
+  column-gap: var(--gap);
+  width: max-content; /* vira um “trilho” longo que rola */
+}
+
+/* TRILHO */
+.rail{
+  position: relative;
+  height: var(--rail-h);
+  align-items: center;
+  margin-bottom: 10px; /* distância do trilho pro ano */
+}
+
+/* linha reta (continua, igual a azul) */
+.rail-line{
+  position: absolute;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: var(--line);
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 0;
+}
+
+/* bolinhas CENTRALIZADAS em cada coluna */
+.rail-dot{
+  width: var(--dot);
+  height: var(--dot);
+  border-radius: 999px;
+  background: var(--brand);
+  justify-self: center; /* ✅ centro do “card” */
+  z-index: 1;
+}
+
+/* CARDS */
+.card{
+  width: var(--card-w);
+}
+
+.year{
+  font-size: 1.55rem;
+  font-weight: 600;
+  color: var(--text);
+  text-align: left;
+}
+
+.text{
+  margin: .55rem 0 0 0;
+  font-size: 1rem;
+  line-height: 1.55;
+  color: var(--muted);
+  max-width: 26ch;
+}
+
+/* RESPONSIVO */
+@media (max-width: 768px){
+  :root{
+    --card-w: 230px;
+    --gap: 2.5rem;
+    --dot: 12px;
+  }
+  .header h2{ font-size: 1.85rem; }
+}
+</style>
