@@ -56,7 +56,22 @@ backend:
 2. Clique em **Enable Identity**
 3. Vá em **Identity → Settings → Services**
 4. Ative o **Git Gateway**
-5. Configure os usuários em **Identity → Invite users**
+5. Configure os usuários:
+   - **Opção A (Recomendado - Open Registration Temporário):**
+     - Vá em **Identity → Registration**
+     - Habilite **Allow open signups** (permite auto-cadastro)
+     - **IMPORTANTE:** Apenas deixe habilitado temporariamente!
+     - Acesse `https://seu-site.netlify.app/admin` no navegador
+     - O Decap CMS vai mostrar um botão **Sign up** (cadastrar)
+     - Clique em **Sign up**
+     - Digite seu email e senha
+     - Crie sua conta diretamente (sem precisar de email)
+     - **IMPORTANTE:** Volte no Netlify e desabilite **Allow open signups** depois!
+   
+   - **Opção B (Alternativa - Autoconfirm + API):**
+     - Habilite **Autoconfirm** em **Identity → Registration → Confirmation template**
+     - Use um dos usuários já criados (se tiver acesso)
+     - Ou use a API do Netlify Identity (mais complexo)
 
 ### Passo 4: Configurar Build Settings
 
@@ -179,6 +194,60 @@ elonet-website/
 ```
 
 ## 🆘 Problemas Comuns
+
+### "Email de convite não chega / Resend não funciona"
+
+**Problema:** O Netlify Identity não envia emails por padrão sem SMTP configurado.
+
+**Solução:**
+1. **Habilitar Autoconfirm (Recomendado):**
+   - Vá em **Identity → Registration → Confirmation template**
+   - Clique em **Configure**
+   - Habilite **Autoconfirm** (usuários não precisam confirmar email)
+   - Volte para **Identity → Users**
+   - Delete os usuários existentes (se necessário)
+   - Crie um novo usuário diretamente (sem precisar de email)
+
+2. **Usar Open Registration (Temporário):**
+   - Vá em **Identity → Registration**
+   - Habilite **Allow open signups**
+   - Acesse `https://seu-site.netlify.app/admin`
+   - Use o botão "Sign up" para criar sua conta
+   - **Importante:** Desabilite depois de criar
+
+3. **Configurar SMTP (Avançado - Opcional):**
+   - Vá em **Identity → Emails → Outgoing email address**
+   - Configure um provedor SMTP gratuito (veja opções abaixo)
+   - Isso permite que emails sejam enviados corretamente
+   
+   **Serviços SMTP Gratuitos Recomendados:**
+   
+   **Opção 1: SendGrid** (Recomendado)
+   - **Plano Grátis:** 100 emails/dia
+   - **Site:** https://sendgrid.com
+   - **Configuração:**
+     - SMTP Host: `smtp.sendgrid.net`
+     - SMTP Port: `587`
+     - Username: `apikey`
+     - Password: sua API Key do SendGrid
+   
+   **Opção 2: Brevo (Sendinblue)**
+   - **Plano Grátis:** 300 emails/dia
+   - **Site:** https://www.brevo.com
+   - **Configuração:**
+     - SMTP Host: `smtp-relay.brevo.com`
+     - SMTP Port: `587`
+     - Username: seu email de login do Brevo
+     - Password: sua SMTP Key do Brevo
+   
+   **Opção 3: Resend**
+   - **Plano Grátis:** 3.000 emails/mês
+   - **Site:** https://resend.com
+   - **Configuração:**
+     - SMTP Host: `smtp.resend.com`
+     - SMTP Port: `587`
+     - Username: `resend`
+     - Password: sua API Key do Resend
 
 ### "CMS não carrega no Netlify"
 

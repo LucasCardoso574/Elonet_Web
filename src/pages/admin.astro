@@ -9,27 +9,33 @@
   <title>Content Manager - Admin</title>
   <!-- Informa ao Decap CMS onde está o config.yml -->
   <link href="/admin/config.yml" type="text/yaml" rel="cms-config-url" />
-  <!-- Netlify Identity apenas em produção -->
-  <!-- <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script> -->
+  <!-- Netlify Identity Widget (necessário para git-gateway no Netlify) -->
+  <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
 </head>
 <body>
-  <!-- Verificação de autenticação - Sem sessão persistente -->
+  <!-- Verificação de autenticação - Apenas em desenvolvimento local -->
   <script>
-    // Verificar se há token de autenticação na URL (vindo do login)
-    const urlParams = new URLSearchParams(window.location.search);
-    const authToken = urlParams.get('auth');
+    // Verificar se está em desenvolvimento local (localhost)
+    const isLocalDev = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1';
     
-    // Se não houver token, redirecionar para login
-    if (!authToken || authToken !== 'true') {
-      // Limpar qualquer resquício
-      sessionStorage.removeItem('admin-authenticated');
-      sessionStorage.removeItem('admin-timestamp');
-      window.location.href = '/admin/login';
-    } else {
-      // Remover o token da URL (sem recarregar)
-      const newUrl = window.location.pathname;
-      window.history.replaceState({}, '', newUrl);
+    if (isLocalDev) {
+      // Em desenvolvimento local, usar o sistema de login customizado
+      const urlParams = new URLSearchParams(window.location.search);
+      const authToken = urlParams.get('auth');
+      
+      // Se não houver token, redirecionar para login
+      if (!authToken || authToken !== 'true') {
+        // Limpar qualquer resquício
+        sessionStorage.removeItem('admin-authenticated');
+        sessionStorage.removeItem('admin-timestamp');
+        window.location.href = '/admin/login';
+      } else {
+        // Remover o token da URL (sem recarregar)
+        const newUrl = window.location.pathname;
+        window.history.replaceState({}, '', newUrl);
+      }
     }
+    // No Netlify (produção), o Decap CMS usa o Netlify Identity Widget diretamente
   </script>
   <!-- Decap CMS carrega automaticamente o config.yml -->
   <script src="https://unpkg.com/decap-cms@^3.0.0/dist/decap-cms.js"></script>
