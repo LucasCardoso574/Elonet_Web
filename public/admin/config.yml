@@ -6,16 +6,16 @@
 # OPÇÃO 1: Desenvolvimento Local (com proxy server)
 # Use esta opção quando estiver desenvolvendo localmente
 # Inicie o proxy com: npm run cms:proxy
-backend:
-  name: proxy
-  proxy_url: http://localhost:8081/api/v1
-  branch: main
+# backend:
+#   name: proxy
+#   proxy_url: http://localhost:8081/api/v1
+#   branch: main
 
 # OPÇÃO 2: Produção no Netlify (com Git Gateway)
-# Descomente estas linhas e comente a opção acima quando estiver no Netlify:
-# backend:
-#   name: git-gateway
-#   branch: main
+# Use esta opção no Netlify em produção:
+backend:
+  name: git-gateway
+  branch: main
 
 # OPÇÃO 3: Produção no LocalWeb ou outro servidor (Git direto)
 # Descomente estas linhas e comente a opção acima quando migrar para LocalWeb:
