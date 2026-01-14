@@ -1,8 +1,10 @@
 // @ts-check
 import { defineConfig } from 'astro/config';
+import netlify from '@astrojs/netlify';
 
 // https://astro.build/config
 export default defineConfig({
+  adapter: netlify(),
   server: {
     host: true, // Permite acesso de qualquer host (incluindo ngrok)
     port: 4321,
