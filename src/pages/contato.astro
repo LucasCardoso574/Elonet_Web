@@ -18,13 +18,13 @@ import Footer from '../components/Footer.astro';
     <section class="contact-section">
       <div class="container">
         <div class="contact-grid">
-          <div class="contact-info" data-aos="fade-up">
+          <div class="contact-info">
             <h2 class="section-title">Entre em contato</h2>
-            <p class="contact-text" data-aos="fade-up" data-aos-delay="100">
+            <p class="contact-text">
               Preencha o formulário ou entre em contato diretamente via WhatsApp. Nossa equipe técnica está pronta para avaliar sua demanda e apresentar soluções personalizadas.
             </p>
             <div class="contact-methods">
-              <a href="https://wa.me/5511999999999?text=Olá,%20gostaria%20de%20falar%20com%20um%20especialista" class="contact-method" data-aos="fade-up" data-aos-delay="0">
+              <a href="https://wa.me/5511999999999?text=Olá,%20gostaria%20de%20falar%20com%20um%20especialista" class="contact-method">
                 <span class="material-symbols-outlined">chat</span>
                 <div>
                 
@@ -32,14 +32,14 @@ import Footer from '../components/Footer.astro';
                   <span>Atendimento direto</span>
                 </div>
               </a>
-              <div class="contact-method" data-aos="fade-up" data-aos-delay="100">
+              <div class="contact-method">
                 <span class="material-symbols-outlined">mail</span>
                 <div>
                   <strong>E-mail</strong>
                   <span>contato@elonet.com.br</span>
                 </div>
               </div>
-              <div class="contact-method" data-aos="fade-up" data-aos-delay="200">
+              <div class="contact-method">
                 <span class="material-symbols-outlined">call</span>
                 <div>
                   <strong>Telefone</strong>
@@ -49,7 +49,7 @@ import Footer from '../components/Footer.astro';
             </div>
           </div>
           
-          <form class="contact-form" data-aos="fade-up" data-aos-delay="200">
+          <form class="contact-form">
             <div class="form-group">
               <label for="nome">Nome</label>
               <input type="text" id="nome" name="nome" required />
@@ -111,46 +111,9 @@ import Footer from '../components/Footer.astro';
     });
   });
   
-  // Carregar e inicializar AOS de forma segura
-  window.addEventListener('load', function() {
-    const script = document.createElement('script');
-    script.src = 'https://unpkg.com/aos@2.3.1/dist/aos.js';
-    script.async = true;
-    script.onload = function() {
-      if (typeof AOS !== 'undefined') {
-        AOS.init({
-          duration: 800,
-          easing: 'ease-in-out',
-          once: true,
-          offset: 50,
-          disable: window.innerWidth < 768
-        });
-      }
-    };
-    script.onerror = function() {
-      console.error('Erro ao carregar AOS');
-    };
-    document.head.appendChild(script);
-  });
 </script>
 
 <style>
-  /* Garantir visibilidade inicial dos elementos */
-  [data-aos] {
-    opacity: 1 !important;
-    visibility: visible !important;
-  }
-  
-  /* Quando AOS inicializar, permitir animação de opacidade */
-  body.aos-initialized [data-aos]:not(.aos-animate) {
-    opacity: 0;
-    transition: opacity 0.8s ease-in-out, transform 0.8s ease-in-out;
-  }
-  
-  body.aos-initialized [data-aos].aos-animate {
-    opacity: 1;
-  }
-  
   .page-hero {
     position: relative;
     padding: var(--spacing-16);

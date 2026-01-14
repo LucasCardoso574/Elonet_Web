@@ -4,11 +4,18 @@
   "version": "0.0.1",
   "scripts": {
     "dev": "astro dev",
+    "dev:cms": "powershell -ExecutionPolicy Bypass -File ./start-cms.ps1",
+    "cms:proxy": "npx decap-server",
     "build": "astro build",
     "preview": "astro preview",
     "astro": "astro"
   },
   "dependencies": {
-    "astro": "^5.16.6"
+    "astro": "^5.16.6",
+    "remark": "^15.0.1",
+    "remark-html": "^16.0.1"
+  },
+  "devDependencies": {
+    "decap-server": "^3.5.0"
   }
 }

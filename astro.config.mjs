@@ -5,7 +5,11 @@ import { defineConfig } from 'astro/config';
 export default defineConfig({
   server: {
     host: true, // Permite acesso de qualquer host (incluindo ngrok)
-    port: 4321
+    port: 4321,
+    watch: {
+      // Garantir que o Astro detecte mudanças nos arquivos de conteúdo
+      include: ['src/content/**/*']
+    }
   },
   vite: {
     server: {
@@ -23,6 +27,11 @@ export default defineConfig({
       },
       hmr: {
         clientPort: 443 // Para ngrok com HTTPS
+      },
+      watch: {
+        // Melhorar detecção de mudanças em arquivos
+        usePolling: false,
+        interval: 100
       }
     }
   }

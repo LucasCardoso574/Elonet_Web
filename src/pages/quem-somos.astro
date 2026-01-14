@@ -18,20 +18,20 @@ import Footer from '../components/Footer.astro';
     <section class="content-section">
       <div class="container">
         <div class="content-with-image">
-          <div class="content-image" data-aos="fade-up">
+          <div class="content-image">
             <img src="/images/reuniao.png" alt="Equipe Elonet em reunião" class="reuniao-image" />
           </div>
           <div class="content-wrapper">
-            <h2 class="section-title" data-aos="fade-up">A ELONET</h2>
-            <p class="content-text" data-aos="fade-up" data-aos-delay="100">
+            <h2 class="section-title">A ELONET</h2>
+            <p class="content-text">
               Ao longo de sua trajetória, a Elonet construiu uma reputação sólida baseada em excelência técnica, confiabilidade operacional e profundo conhecimento normativo, tornando-se atualmente a principal empresa do segmento de Servicer em sua área de atuação no Brasil.
             </p>
           </div>
         </div>
-          <p class="content-text" data-aos="fade-up" data-aos-delay="200">
+          <p class="content-text">
             A Elonet executa serviços de alta complexidade relacionados ao FCVS, incluindo análise, habilitação, validação, novação, enquadramento e acompanhamento de créditos, sempre em conformidade com os normativos vigentes.
           </p>
-          <p class="content-text" data-aos="fade-up" data-aos-delay="300">
+          <p class="content-text">
             Somos gestores das maiores carteiras de FCVS do país, administrando mais de meio milhão de créditos habitacionais, o que nos posiciona como líder absoluta do segmento.
 A Elonet participou, direta e indiretamente, da Novação de mais de 20 bilhões de crédito junto ao FCVS gerados aos seus clientes.
           </p>
@@ -41,21 +41,21 @@ A Elonet participou, direta e indiretamente, da Novação de mais de 20 bilhões
     
     <section class="dna-section">
       <div class="container">
-        <h2 class="section-title" data-aos="fade-up">Nosso DNA | Nossa Cultura</h2>
+        <h2 class="section-title">Nosso DNA | Nossa Cultura</h2>
         <div class="dna-grid">
-          <div class="dna-card" data-aos="fade-up" data-aos-delay="0">
+          <div class="dna-card">
             <h3 class="dna-title">Missão</h3>
             <p class="dna-text">
               Entregar soluções técnicas e estratégicas em habitação e crédito imobiliário, com foco na recuperação de créditos, na conformidade legal e na segurança institucional dos processos, atuando de forma ética, eficiente e orientada a resultados.
             </p>
           </div>
-          <div class="dna-card" data-aos="fade-up" data-aos-delay="100">
+          <div class="dna-card">
             <h3 class="dna-title">Visão</h3>
             <p class="dna-text">
               Ser referência nacional em soluções para o FCVS e o Sistema Financeiro da Habitação, liderando processos de novação até o encerramento definitivo do FCVS em 31/12/2026, com excelência técnica e credibilidade reconhecida pelo mercado.
             </p>
           </div>
-          <div class="dna-card dna-full" data-aos="fade-up" data-aos-delay="200">
+          <div class="dna-card dna-full">
             <h3 class="dna-title">Valores</h3>
             <ul class="values-list">
               <li>Excelência Técnica e Especialização</li>
@@ -145,46 +145,9 @@ A Elonet participou, direta e indiretamente, da Novação de mais de 20 bilhões
     });
   });
   
-  // Carregar e inicializar AOS de forma segura
-  window.addEventListener('load', function() {
-    const script = document.createElement('script');
-    script.src = 'https://unpkg.com/aos@2.3.1/dist/aos.js';
-    script.async = true;
-    script.onload = function() {
-      if (typeof AOS !== 'undefined') {
-        AOS.init({
-          duration: 800,
-          easing: 'ease-in-out',
-          once: true,
-          offset: 50,
-          disable: window.innerWidth < 768
-        });
-      }
-    };
-    script.onerror = function() {
-      console.error('Erro ao carregar AOS');
-    };
-    document.head.appendChild(script);
-  });
 </script>
 
 <style>
-  /* Garantir visibilidade inicial dos elementos */
-  [data-aos] {
-    opacity: 1 !important;
-    visibility: visible !important;
-  }
-  
-  /* Quando AOS inicializar, permitir animação de opacidade */
-  body.aos-initialized [data-aos]:not(.aos-animate) {
-    opacity: 0;
-    transition: opacity 0.8s ease-in-out, transform 0.8s ease-in-out;
-  }
-  
-  body.aos-initialized [data-aos].aos-animate {
-    opacity: 1;
-  }
-  
   .page-hero {
     position: relative;
     padding: var(--spacing-16);

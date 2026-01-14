@@ -1,0 +1,226 @@
+---
+// Página de admin do Decap CMS
+---
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Content Manager - Admin</title>
+  <!-- Informa ao Decap CMS onde está o config.yml -->
+  <link href="/admin/config.yml" type="text/yaml" rel="cms-config-url" />
+  <!-- Netlify Identity apenas em produção -->
+  <!-- <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script> -->
+</head>
+<body>
+  <!-- Verificação de autenticação - Sem sessão persistente -->
+  <script>
+    // Verificar se há token de autenticação na URL (vindo do login)
+    const urlParams = new URLSearchParams(window.location.search);
+    const authToken = urlParams.get('auth');
+    
+    // Se não houver token, redirecionar para login
+    if (!authToken || authToken !== 'true') {
+      // Limpar qualquer resquício
+      sessionStorage.removeItem('admin-authenticated');
+      sessionStorage.removeItem('admin-timestamp');
+      window.location.href = '/admin/login';
+    } else {
+      // Remover o token da URL (sem recarregar)
+      const newUrl = window.location.pathname;
+      window.history.replaceState({}, '', newUrl);
+    }
+  </script>
+  <!-- Decap CMS carrega automaticamente o config.yml -->
+  <script src="https://unpkg.com/decap-cms@^3.0.0/dist/decap-cms.js"></script>
+  <script>
+    // Configuração do Decap CMS
+    (function() {
+      function initCMS() {
+        if (typeof CMS === 'undefined') {
+          setTimeout(initCMS, 100);
+          return;
+        }
+        
+        // Gerar ID e Data automáticos antes de salvar
+        CMS.registerEventListener({
+          name: 'preSave',
+          handler: ({ entry }) => {
+            // Apenas para a coleção 'noticias'
+            if (entry.get('collection') === 'noticias') {
+              const data = entry.get('data');
+              let updatedData = data;
+              
+              // Gerar ID se não existir ou for string vazia
+              const currentId = data.get('id');
+              if (!currentId || currentId === '' || currentId === null) {
+                const newId = Math.floor(Date.now() / 1000);
+                updatedData = updatedData.set('id', newId);
+              }
+              
+              // Gerar Data de Publicação automaticamente (sempre usar data atual ao criar)
+              // Se for uma nova entrada (sem slug ainda) ou data estiver vazia, usar data de hoje
+              const currentData = updatedData.get('data');
+              const slug = entry.get('slug');
+              
+              // Converter data para string se necessário (YAML pode salvar como Date)
+              let dateStr;
+              if (!currentData || currentData === '' || currentData === null || !slug) {
+                // Se não tiver data ou for uma nova entrada, usar a data de hoje
+                const today = new Date();
+                dateStr = today.toISOString().split('T')[0]; // YYYY-MM-DD
+              } else {
+                // Se já tiver data, garantir que seja string
+                if (currentData instanceof Date) {
+                  dateStr = currentData.toISOString().split('T')[0];
+                } else if (typeof currentData === 'string') {
+                  dateStr = currentData;
+                } else {
+                  // Tentar converter para string
+                  const date = new Date(currentData);
+                  dateStr = date.toISOString().split('T')[0];
+                }
+              }
+              updatedData = updatedData.set('data', dateStr);
+              
+              return entry.set('data', updatedData);
+            }
+            
+            return entry;
+          },
+        });
+        
+        // Forçar reload do Astro após salvar (para atualizar em tempo real)
+        CMS.registerEventListener({
+          name: 'postSave',
+          handler: ({ entry }) => {
+            // Aguardar um pouco para o arquivo ser salvo no disco
+            setTimeout(() => {
+              // Tentar forçar reload do Astro dev server
+              // Isso funciona se o Astro estiver em modo dev
+              if (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1') {
+                // Enviar mensagem para o iframe do CMS (se houver)
+                // Ou simplesmente mostrar uma mensagem
+                console.log('Notícia salva! Recarregue a página de notícias para ver as mudanças.');
+                
+                // Opcional: abrir a página de notícias em nova aba
+                // window.open('/noticias', '_blank');
+              }
+            }, 500);
+          },
+        });
+        
+        // Interceptar logout do Decap CMS e redirecionar para nossa página de login
+        try {
+          const interceptLogout = () => {
+            // Múltiplas estratégias para encontrar o botão de logout
+            const logoutSelectors = [
+              '[data-testid="logout-button"]',
+              'button[aria-label*="logout" i]',
+              'button[aria-label*="sair" i]',
+              'a[href*="logout"]',
+              '.cms-logout',
+              '[class*="logout"]',
+              'button:has-text("Logout")',
+              'button:has-text("Sair")'
+            ];
+            
+            const findLogoutButton = () => {
+              for (const selector of logoutSelectors) {
+                try {
+                  const btn = document.querySelector(selector);
+                  if (btn) return btn;
+                } catch (e) {
+                  // Seletor pode não ser válido, continuar
+                }
+              }
+              
+              // Buscar por texto também
+              const allButtons = document.querySelectorAll('button, a');
+              for (const btn of allButtons) {
+                const text = btn.textContent?.toLowerCase() || '';
+                if (text.includes('logout') || text.includes('sair') || text.includes('log out')) {
+                  return btn;
+                }
+              }
+              
+              return null;
+            };
+            
+            const setupLogoutInterceptor = (button) => {
+              if (button && !button.dataset.logoutIntercepted) {
+                button.dataset.logoutIntercepted = 'true';
+                
+                button.addEventListener('click', function(e) {
+                  // Limpar qualquer autenticação
+                  sessionStorage.removeItem('admin-authenticated');
+                  sessionStorage.removeItem('admin-timestamp');
+                  
+                  // Redirecionar para nossa página de login
+                  setTimeout(() => {
+                    window.location.href = '/admin/login';
+                  }, 100);
+                }, { once: false }); // Não usar once para garantir que funcione
+              }
+            };
+            
+            // Tentar encontrar e interceptar imediatamente
+            const logoutBtn = findLogoutButton();
+            if (logoutBtn) {
+              setupLogoutInterceptor(logoutBtn);
+            }
+            
+            // Observar mudanças no DOM para detectar quando o botão aparece
+            const observer = new MutationObserver(() => {
+              const btn = findLogoutButton();
+              if (btn) {
+                setupLogoutInterceptor(btn);
+              }
+            });
+            
+            observer.observe(document.body, {
+              childList: true,
+              subtree: true,
+              attributes: true
+            });
+          };
+          
+          // Tentar interceptar em diferentes momentos
+          setTimeout(interceptLogout, 500);
+          setTimeout(interceptLogout, 2000);
+          setTimeout(interceptLogout, 5000);
+          
+          if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', interceptLogout);
+          } else {
+            interceptLogout();
+          }
+        } catch (error) {
+          // Se não conseguir interceptar, não é crítico - o Decap CMS fará o logout normalmente
+          if (import.meta.env.DEV) {
+            console.log('⚠️ Não foi possível interceptar logout do Decap CMS. O logout padrão será usado.');
+          }
+        }
+      }
+      
+      // Inicializar quando o CMS estiver pronto
+      if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', initCMS);
+      } else {
+        initCMS();
+      }
+    })();
+    
+    // Netlify Identity (apenas em produção - comentado para desenvolvimento)
+    // if (window.netlifyIdentity) {
+    //   window.netlifyIdentity.on("init", user => {
+    //     if (!user) {
+    //       window.netlifyIdentity.on("login", () => {
+    //         document.location.href = "/admin";
+    //       });
+    //     }
+    //   });
+    // }
+  </script>
+</body>
+</html>

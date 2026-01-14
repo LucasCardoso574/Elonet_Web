@@ -17,23 +17,27 @@ const { currentPath = Astro.url.pathname } = Astro.props;
       <a href="/quem-somos" class={`nav-link ${currentPath === '/quem-somos' ? 'active' : ''}`}>Quem Somos</a>
       <a href="/solucoes" class={`nav-link ${currentPath === '/solucoes' ? 'active' : ''}`}>Soluções</a>
       <a href="/casos-de-sucesso" class={`nav-link ${currentPath === '/casos-de-sucesso' ? 'active' : ''}`}>Casos de Sucesso</a>
+      <a href="/noticias" class={`nav-link ${currentPath === '/noticias' || currentPath.startsWith('/noticias/') ? 'active' : ''}`}>Notícias</a>
       <a href="/contato" class={`nav-link ${currentPath === '/contato' ? 'active' : ''}`}>Contato</a>
     </nav>
     
     <div class="header-actions">
       <a href="#" class="btn-primary">Área do Cliente SIAR</a>
-      <button class="mobile-menu-btn">
-        <span class="material-symbols-outlined">menu</span>
+      <button class="mobile-menu-btn" id="mobile-menu-btn" aria-label="Menu mobile" aria-expanded="false" onclick="toggleMobileMenu()">
+        <span class="material-symbols-outlined menu-icon">menu</span>
+        <span class="material-symbols-outlined close-icon">close</span>
       </button>
     </div>
   </div>
 </header>
 
+<!-- Mobile Menu será criado dinamicamente via JavaScript -->
+
 <style>
   .header {
     position: sticky;
     top: 0;
-    z-index: 50;
+    z-index: var(--z-sticky);
     width: 100%;
     border-bottom: 1px solid var(--color-gray-200);
     background-color: rgba(255, 255, 255, 0.9);
@@ -174,8 +178,30 @@ const { currentPath = Astro.url.pathname } = Astro.props;
   
   .mobile-menu-btn {
     display: flex;
+    align-items: center;
+    justify-content: center;
     padding: var(--spacing-2);
     color: var(--color-gray-600);
+    transition: color var(--transition-fast);
+    position: relative;
+    width: 2.5rem;
+    height: 2.5rem;
+  }
+  
+  .mobile-menu-btn:hover {
+    color: var(--color-institutional);
+  }
+  
+  .mobile-menu-btn .close-icon {
+    display: none;
+  }
+  
+  .mobile-menu-btn[aria-expanded="true"] .menu-icon {
+    display: none;
+  }
+  
+  .mobile-menu-btn[aria-expanded="true"] .close-icon {
+    display: block;
   }
   
   @media (min-width: 768px) {
@@ -183,5 +209,108 @@ const { currentPath = Astro.url.pathname } = Astro.props;
       display: none;
     }
   }
+  
+  /* CSS do menu mobile foi movido para <style is:global> porque é criado dinamicamente */
 </style>
+
+<!-- CSS do menu mobile está em /src/styles/mobile-menu.css e é importado no Layout.astro -->
+
+<script is:inline>
+  // Dados do menu - currentPath será definido abaixo
+  const menuData = {
+    currentPath: '',
+    links: [
+      { href: '/', label: 'Home' },
+      { href: '/quem-somos', label: 'Quem Somos' },
+      { href: '/solucoes', label: 'Soluções' },
+      { href: '/casos-de-sucesso', label: 'Casos de Sucesso' },
+      { href: '/noticias', label: 'Notícias' },
+      { href: '/contato', label: 'Contato' }
+    ]
+  };
+  
+  // Definir currentPath a partir do window.location
+  menuData.currentPath = window.location.pathname;
+
+  function createMobileMenu() {
+    // Criar menu (overlay removido - sem sombreamento)
+    var menu = document.createElement('div');
+    menu.id = 'mobile-menu';
+    menu.className = 'mobile-menu';
+    
+    var nav = document.createElement('nav');
+    nav.className = 'mobile-nav';
+    
+    // Adicionar links
+    menuData.links.forEach(function(link) {
+      var a = document.createElement('a');
+      a.href = link.href;
+      var isActive = menuData.currentPath === link.href || (link.href === '/noticias' && menuData.currentPath.startsWith('/noticias/'));
+      a.className = 'mobile-nav-link' + (isActive ? ' active' : '');
+      a.textContent = link.label;
+      a.onclick = closeMobileMenu;
+      nav.appendChild(a);
+    });
+    
+    // Botão primário
+    var btnPrimary = document.createElement('a');
+    btnPrimary.href = '#';
+    btnPrimary.className = 'mobile-btn-primary';
+    btnPrimary.textContent = 'Área do Cliente SIAR';
+    btnPrimary.onclick = closeMobileMenu;
+    nav.appendChild(btnPrimary);
+    
+    menu.appendChild(nav);
+    document.body.appendChild(menu);
+  }
+
+  function toggleMobileMenu() {
+    var menu = document.getElementById('mobile-menu');
+    var btn = document.getElementById('mobile-menu-btn');
+    
+    // Criar menu se não existir
+    if (!menu) {
+      createMobileMenu();
+      menu = document.getElementById('mobile-menu');
+    }
+    
+    if (!menu || !btn) return;
+    
+    var isOpen = menu.classList.contains('is-open');
+    
+    if (isOpen) {
+      menu.classList.remove('is-open');
+      menu.style.transform = 'translateX(-100%)';
+      btn.setAttribute('aria-expanded', 'false');
+      document.body.style.overflow = '';
+    } else {
+      menu.classList.add('is-open');
+      menu.style.transform = 'translateX(0)';
+      btn.setAttribute('aria-expanded', 'true');
+      document.body.style.overflow = 'hidden';
+    }
+  }
+  
+  function closeMobileMenu() {
+    var menu = document.getElementById('mobile-menu');
+    var btn = document.getElementById('mobile-menu-btn');
+    
+    if (!menu || !btn) return;
+    
+    menu.classList.remove('is-open');
+    menu.style.transform = 'translateX(-100%)';
+    btn.setAttribute('aria-expanded', 'false');
+    document.body.style.overflow = '';
+  }
+  
+  // Fechar com ESC
+  document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape') {
+      var menu = document.getElementById('mobile-menu');
+      if (menu && menu.classList.contains('is-open')) {
+        closeMobileMenu();
+      }
+    }
+  });
+</script>
 

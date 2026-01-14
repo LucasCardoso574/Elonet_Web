@@ -22,3 +22,10 @@ pnpm-debug.log*
 
 # jetbrains setting folder
 .idea/
+
+# Arquivos de teste de notícias (criados durante desenvolvimento)
+# Em produção, as notícias serão criadas através do CMS
+src/content/noticias/map-id-*
+src/content/noticias/teste*.md
+src/content/noticias/*teste*.md
+src/content/noticias/noticia-*.md

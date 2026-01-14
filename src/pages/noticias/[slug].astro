@@ -1,0 +1,219 @@
+---
+import { getCollection } from 'astro:content';
+import Layout from '../../layouts/Layout.astro';
+import Header from '../../components/Header.astro';
+import Footer from '../../components/Footer.astro';
+
+export async function getStaticPaths() {
+  const noticias = await getCollection('noticias');
+  return noticias.map((noticia) => ({
+    params: { slug: noticia.slug },
+    props: { noticia },
+  }));
+}
+
+const { noticia } = Astro.props;
+const { Content } = await noticia.render();
+---
+
+<Layout title={`${noticia.data.titulo} - Notícias - Elonet Habitação`}>
+  <Header currentPath={Astro.url.pathname} />
+  <main>
+    <section class="noticia-hero">
+      <div class="container">
+        <a href="/noticias" class="back-link">
+          <span class="material-symbols-outlined">arrow_back</span>
+          Voltar para Notícias
+        </a>
+        <div class="noticia-header">
+          <div class="noticia-meta">
+            <time class="noticia-date">{new Date(noticia.data.data).toLocaleDateString('pt-BR', { day: '2-digit', month: 'long', year: 'numeric' })}</time>
+            <span class="noticia-author">{noticia.data.autor}</span>
+          </div>
+          <h1 class="noticia-title-page">{noticia.data.titulo}</h1>
+        </div>
+      </div>
+    </section>
+    
+    <section class="noticia-content-section">
+      <div class="container">
+        <article class="noticia-article">
+          <div class="noticia-image-full">
+            <img 
+              src={noticia.data.imagem} 
+              alt={noticia.data.titulo}
+              loading="lazy"
+            />
+          </div>
+          <div class="noticia-text">
+            <Content />
+          </div>
+        </article>
+      </div>
+    </section>
+  </main>
+  <Footer />
+</Layout>
+
+<script is:inline>
+  // Scroll suave para links internos
+  document.addEventListener('DOMContentLoaded', function() {
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function(e) {
+        const href = this.getAttribute('href');
+        if (href && href !== '#') {
+          e.preventDefault();
+          const target = document.querySelector(href);
+          if (target) {
+            const headerOffset = 80;
+            const elementPosition = target.getBoundingClientRect().top;
+            const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
+            
+            window.scrollTo({
+              top: offsetPosition,
+              behavior: 'smooth'
+            });
+          }
+        }
+      });
+    });
+  });
+  
+</script>
+
+<style>
+  .noticia-hero {
+    padding: var(--spacing-8) 0 var(--spacing-8);
+    background-color: var(--color-background-light);
+  }
+  
+  .back-link {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--spacing-2);
+    color: var(--color-institutional);
+    font-weight: var(--font-weight-semibold);
+    text-decoration: none;
+    margin-bottom: var(--spacing-6);
+    transition: color var(--transition-fast);
+  }
+  
+  .back-link:hover {
+    color: var(--color-institutional-hover);
+  }
+  
+  .noticia-header {
+    margin-bottom: var(--spacing-8);
+  }
+  
+  .noticia-meta {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-4);
+    font-size: 0.9375rem;
+    color: var(--color-gray-600);
+    margin-bottom: var(--spacing-4);
+  }
+  
+  .noticia-title-page {
+    font-size: 2.75rem;
+    font-weight: var(--font-weight-bold);
+    color: var(--color-text-main);
+    line-height: 1.2;
+    margin: 0;
+  }
+  
+  @media (min-width: 768px) {
+    .noticia-title-page {
+      font-size: 3.5rem;
+    }
+  }
+  
+  .noticia-content-section {
+    padding: var(--spacing-8) 0 var(--spacing-16);
+    background-color: var(--color-background-light);
+  }
+  
+  .noticia-article {
+    max-width: 48rem;
+    margin: 0 auto;
+  }
+  
+  .noticia-image-full {
+    width: 100%;
+    margin-bottom: var(--spacing-8);
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+  }
+  
+  .noticia-image-full img {
+    width: 100%;
+    height: auto;
+    display: block;
+    object-fit: cover;
+  }
+  
+  .noticia-text {
+    font-size: 1.25rem;
+    line-height: 1.8;
+    color: var(--color-text-main);
+  }
+  
+  .noticia-text p {
+    margin-bottom: var(--spacing-6);
+  }
+  
+  .noticia-text p:last-child {
+    margin-bottom: 0;
+  }
+  
+  .noticia-text h2 {
+    font-size: 2rem;
+    font-weight: var(--font-weight-bold);
+    color: var(--color-text-main);
+    margin-top: var(--spacing-12);
+    margin-bottom: var(--spacing-6);
+    line-height: 1.3;
+  }
+  
+  .noticia-text h2:first-of-type {
+    margin-top: var(--spacing-8);
+  }
+  
+  .noticia-text ul {
+    margin: var(--spacing-6) 0;
+    padding-left: var(--spacing-8);
+    list-style: none;
+  }
+  
+  .noticia-text ul li {
+    margin-bottom: var(--spacing-4);
+    padding-left: var(--spacing-6);
+    position: relative;
+    line-height: 1.7;
+  }
+  
+  .noticia-text ul li::before {
+    content: "▸";
+    position: absolute;
+    left: 0;
+    color: var(--color-institutional);
+    font-weight: var(--font-weight-bold);
+    font-size: 1.125rem;
+  }
+  
+  .noticia-text img {
+    width: 100%;
+    height: auto;
+    border-radius: var(--radius-lg);
+    margin: var(--spacing-8) 0;
+    display: block;
+    object-fit: cover;
+  }
+  
+  .noticia-text strong {
+    font-weight: var(--font-weight-bold);
+    color: var(--color-text-main);
+  }
+</style>
+

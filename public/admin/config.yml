@@ -1,0 +1,48 @@
+# ============================================
+# CONFIGURAÇÃO DO BACKEND
+# ============================================
+# Escolha UMA das opções abaixo conforme seu ambiente:
+
+# OPÇÃO 1: Desenvolvimento Local (com proxy server)
+# Use esta opção quando estiver desenvolvendo localmente
+# Inicie o proxy com: npm run cms:proxy
+backend:
+  name: proxy
+  proxy_url: http://localhost:8081/api/v1
+  branch: main
+
+# OPÇÃO 2: Produção no Netlify (com Git Gateway)
+# Descomente estas linhas e comente a opção acima quando estiver no Netlify:
+# backend:
+#   name: git-gateway
+#   branch: main
+
+# OPÇÃO 3: Produção no LocalWeb ou outro servidor (Git direto)
+# Descomente estas linhas e comente a opção acima quando migrar para LocalWeb:
+# IMPORTANTE: Substitua 'seu-usuario/seu-repo' pelo seu repositório Git
+# backend:
+#   name: git
+#   repo: seu-usuario/seu-repo  # Exemplo: elonet/elonet-website
+#   branch: main
+#   auth_type: implicit  # Ou 'token' se usar Personal Access Token
+#   app_id: SEU_APP_ID  # Se usar OAuth (GitHub/GitLab)
+#   auth_scope: repo    # Permissões necessárias
+
+media_folder: "public/images/noticias" # Media files will be stored in the repo under public/images/noticias
+public_folder: "/images/noticias" # The src attribute for uploaded media will begin with /images/noticias
+
+collections:
+  - name: "noticias" # Used in routes, e.g., /admin/collections/noticias
+    label: "Notícias" # Used in the UI
+    folder: "src/content/noticias" # The path to the folder where the documents are stored
+    create: true # Allow users to create new documents in this collection
+    slug: "{{slug}}" # Filename template, e.g., YYYY-MM-DD-title.md
+    fields: # The fields for each document, usually in frontmatter
+      - {label: "ID", name: "id", widget: "hidden", default: ""}
+      - {label: "Título", name: "titulo", widget: "string", required: true}
+      - {label: "Resumo", name: "resumo", widget: "text", required: true}
+      - {label: "Imagem", name: "imagem", widget: "image", required: true}
+      - {label: "Data de Publicação", name: "data", widget: "hidden", default: ""}
+      - {label: "Autor", name: "autor", widget: "string", required: true, default: "Equipe Elonet"}
+      - {label: "Conteúdo", name: "body", widget: "markdown", required: true, buttons: ["bold", "italic", "link", "heading-two", "heading-three", "quote", "code", "bulleted-list", "numbered-list"]}
+

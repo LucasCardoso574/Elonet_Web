@@ -18,7 +18,7 @@ import Footer from '../components/Footer.astro';
     <section class="content-section">
       <div class="container">
         <div class="content-wrapper">
-          <p class="content-text" data-aos="fade-up">
+          <p class="content-text">
            A Elonet possui uma base instalada robusta, composta por mais de meio milhão de créditos sob gestão, atendendo clientes de grande porte e alta relevância institucional.
 Entre seus clientes estão grandes bancos nacionais, fundos de investimento e instituições ligadas ao setor habitacional, como:
 Bancos comerciais e de investimento;
@@ -26,10 +26,10 @@ Companhias públicas de habitação;
 Fundos e estruturas de investimento voltadas ao crédito habitacional e direitos creditórios de forma geral.
 Instituições como Itaú, BTG Pactual, Banco Nacional, entre outras, confiam à Elonet a execução de serviços críticos, reafirmando sua posição de liderança e credibilidade no mercado.
           </p>
-          <p class="content-text" data-aos="fade-up" data-aos-delay="100">
+          <p class="content-text">
             Nossa trajetória de mais de 25 anos no mercado, com reconhecida expertise em Administração de Créditos e Recebíveis Imobiliários, FCVS e Regularização Fundiária, consolidou a ELONET como uma empresa reconhecida pelo profissionalismo, precisão técnica e confiabilidade.
           </p>
-          <div class="cta-box" data-aos="fade-up" data-aos-delay="200">
+          <div class="cta-box">
             <p class="cta-text">
               Quer conhecer como podemos ajudar sua instituição?
             </p>
@@ -82,46 +82,9 @@ Instituições como Itaú, BTG Pactual, Banco Nacional, entre outras, confiam à
     });
   });
   
-  // Carregar e inicializar AOS de forma segura
-  window.addEventListener('load', function() {
-    const script = document.createElement('script');
-    script.src = 'https://unpkg.com/aos@2.3.1/dist/aos.js';
-    script.async = true;
-    script.onload = function() {
-      if (typeof AOS !== 'undefined') {
-        AOS.init({
-          duration: 800,
-          easing: 'ease-in-out',
-          once: true,
-          offset: 50,
-          disable: window.innerWidth < 768
-        });
-      }
-    };
-    script.onerror = function() {
-      console.error('Erro ao carregar AOS');
-    };
-    document.head.appendChild(script);
-  });
 </script>
 
 <style>
-  /* Garantir visibilidade inicial dos elementos */
-  [data-aos] {
-    opacity: 1 !important;
-    visibility: visible !important;
-  }
-  
-  /* Quando AOS inicializar, permitir animação de opacidade */
-  body.aos-initialized [data-aos]:not(.aos-animate) {
-    opacity: 0;
-    transition: opacity 0.8s ease-in-out, transform 0.8s ease-in-out;
-  }
-  
-  body.aos-initialized [data-aos].aos-animate {
-    opacity: 1;
-  }
-  
   .page-hero {
     position: relative;
     padding: var(--spacing-16);

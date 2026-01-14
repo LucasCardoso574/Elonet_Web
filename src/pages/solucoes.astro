@@ -18,24 +18,24 @@ import Footer from '../components/Footer.astro';
     <section class="content-section">
       <div class="container">
         <div class="content-wrapper">
-          <h2 class="section-title" data-aos="fade-up">Tecnologia própria aplicada ao FCVS</h2>
-          <p class="content-text" data-aos="fade-up" data-aos-delay="0">
+          <h2 class="section-title">Tecnologia própria aplicada ao FCVS</h2>
+          <p class="content-text">
            Um dos grandes diferenciais da Elonet é o desenvolvimento e a utilização de sistemas próprios de controle e gestão, capazes de acompanhar toda a trajetória do crédito do FCVS, desde a origem do contrato até as fases mais avançadas do processo, culminando com a Novação dos Créditos.
           </p>
-          <p class="content-text" data-aos="fade-up" data-aos-delay="100">
+          <p class="content-text">
             A Elonet atua de forma abrangente e especializada no suporte técnico-operacional ao SFH, com ênfase na execução de serviços vinculados ao FCVS, incluindo, entre outros:
 Atuação em processos de novação, revisão e enquadramento contratual;
 Suporte regulatório e normativo conforme diretrizes vigentes;
 Prestação de serviços estruturados em modelo Servicer, com alto nível de governança e controle.
 Esses atributos permitem à Elonet oferecer soluções eficientes, seguras e alinhadas às necessidades específicas de cada cliente.
           </p>
-          <p class="content-text" data-aos="fade-up" data-aos-delay="200">
+          <p class="content-text">
             Entretanto, ao longo desse período, as sucessivas alterações no MNPO, instrumento responsável por regulamentar toda a esteira operacional do FCVS — Habilitação, Homologação, Validação e Novação — impactaram de forma significativa a eficiência do processo.
           </p>
-          <p class="content-text" data-aos="fade-up" data-aos-delay="300">
+          <p class="content-text">
             Tais mudanças resultaram em entraves operacionais que afetaram não apenas os Agentes Financeiros, mas também os demais entes envolvidos, como CAIXA, Centralizadoras, CGU e PGFN.
           </p>
-          <p class="content-text" data-aos="fade-up" data-aos-delay="400">
+          <p class="content-text">
             Como consequência, verificou-se um afunilamento expressivo dos contratos encaminhados para análise e auditoria, comprometendo o avanço das operações e gerando prejuízos irreversíveis aos Credores do Fundo.
           </p>
         </div>
@@ -44,28 +44,28 @@ Esses atributos permitem à Elonet oferecer soluções eficientes, seguras e ali
     
     <section class="phases-section">
       <div class="container">
-        <h2 class="section-title" data-aos="fade-up">Fases do Processo FCVS</h2>
-        <p class="section-subtitle" data-aos="fade-up" data-aos-delay="100">
+        <h2 class="section-title">Fases do Processo FCVS</h2>
+        <p class="section-subtitle">
           Os Agentes Operadores do FGTS foram — e continuam sendo — diretamente impactados pela morosidade da esteira operacional do FCVS, mantendo contratos posicionados em diferentes estágios do processo:
         </p>
         <div class="phases-grid">
-          <div class="phase-card" data-aos="fade-up" data-aos-delay="0">
+          <div class="phase-card">
             <h3 class="phase-title">Fase Embrionária</h3>
             <p class="phase-text">Contratos que sequer iniciaram os trabalhos de habilitação.</p>
           </div>
-          <div class="phase-card" data-aos="fade-up" data-aos-delay="100">
+          <div class="phase-card">
             <h3 class="phase-title">Fase Inicial</h3>
             <p class="phase-text">Processos aguardando a primeira análise pela Centralizadora.</p>
           </div>
-          <div class="phase-card" data-aos="fade-up" data-aos-delay="200">
+          <div class="phase-card">
             <h3 class="phase-title">Fase Intermediária</h3>
             <p class="phase-text">Elaboração e envio de recursos para contratos com negativa de cobertura.</p>
           </div>
-          <div class="phase-card" data-aos="fade-up" data-aos-delay="300">
+          <div class="phase-card">
             <h3 class="phase-title">Fase Pré-Novação</h3>
             <p class="phase-text">Contratos aguardando auditoria.</p>
           </div>
-          <div class="phase-card" data-aos="fade-up" data-aos-delay="400">
+          <div class="phase-card">
             <h3 class="phase-title">Fase Final</h3>
             <p class="phase-text">Contratos aptos à Novação dos Créditos.</p>
           </div>
@@ -122,46 +122,9 @@ Esses atributos permitem à Elonet oferecer soluções eficientes, seguras e ali
     });
   });
   
-  // Carregar e inicializar AOS de forma segura
-  window.addEventListener('load', function() {
-    const script = document.createElement('script');
-    script.src = 'https://unpkg.com/aos@2.3.1/dist/aos.js';
-    script.async = true;
-    script.onload = function() {
-      if (typeof AOS !== 'undefined') {
-        AOS.init({
-          duration: 800,
-          easing: 'ease-in-out',
-          once: true,
-          offset: 50,
-          disable: window.innerWidth < 768
-        });
-      }
-    };
-    script.onerror = function() {
-      console.error('Erro ao carregar AOS');
-    };
-    document.head.appendChild(script);
-  });
 </script>
 
 <style>
-  /* Garantir visibilidade inicial dos elementos */
-  [data-aos] {
-    opacity: 1 !important;
-    visibility: visible !important;
-  }
-  
-  /* Quando AOS inicializar, permitir animação de opacidade */
-  body.aos-initialized [data-aos]:not(.aos-animate) {
-    opacity: 0;
-    transition: opacity 0.8s ease-in-out, transform 0.8s ease-in-out;
-  }
-  
-  body.aos-initialized [data-aos].aos-animate {
-    opacity: 1;
-  }
-  
   .page-hero {
     position: relative;
     padding: var(--spacing-16);

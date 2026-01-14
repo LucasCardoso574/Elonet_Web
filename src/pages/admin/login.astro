@@ -1,0 +1,345 @@
+---
+// Página de login para o admin
+---
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Login - Admin</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 1rem;
+    }
+    
+    .login-container {
+      background: white;
+      border-radius: 12px;
+      box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+      padding: 2.5rem;
+      width: 100%;
+      max-width: 400px;
+    }
+    
+    .login-header {
+      text-align: center;
+      margin-bottom: 2rem;
+    }
+    
+    .login-header h1 {
+      color: #333;
+      font-size: 1.75rem;
+      margin-bottom: 0.5rem;
+    }
+    
+    .login-header p {
+      color: #666;
+      font-size: 0.9375rem;
+    }
+    
+    .form-group {
+      margin-bottom: 1.5rem;
+    }
+    
+    .form-group label {
+      display: block;
+      color: #333;
+      font-weight: 500;
+      margin-bottom: 0.5rem;
+      font-size: 0.9375rem;
+    }
+    
+    .form-group input {
+      width: 100%;
+      padding: 0.75rem;
+      border: 2px solid #e0e0e0;
+      border-radius: 8px;
+      font-size: 1rem;
+      transition: border-color 0.2s;
+    }
+    
+    .form-group input:focus {
+      outline: none;
+      border-color: #667eea;
+    }
+    
+    .error-message {
+      background: #fee;
+      color: #c33;
+      padding: 0.75rem;
+      border-radius: 8px;
+      margin-bottom: 1rem;
+      font-size: 0.875rem;
+      display: none;
+    }
+    
+    .error-message.show {
+      display: block;
+    }
+    
+    .blocked-message {
+      background: #fff3cd;
+      color: #856404;
+      padding: 1rem;
+      border-radius: 8px;
+      margin-bottom: 1rem;
+      font-size: 0.9375rem;
+      text-align: center;
+      border: 1px solid #ffc107;
+      display: none;
+    }
+    
+    .blocked-message.show {
+      display: block;
+    }
+    
+    .attempts-warning {
+      background: #f8d7da;
+      color: #721c24;
+      padding: 0.75rem;
+      border-radius: 8px;
+      margin-bottom: 1rem;
+      font-size: 0.875rem;
+      text-align: center;
+      border: 1px solid #f5c6cb;
+      display: none;
+    }
+    
+    .attempts-warning.show {
+      display: block;
+    }
+    
+    .login-button {
+      width: 100%;
+      padding: 0.875rem;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: white;
+      border: none;
+      border-radius: 8px;
+      font-size: 1rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+    
+    .login-button:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(102, 126, 234, 0.4);
+    }
+    
+    .login-button:active {
+      transform: translateY(0);
+    }
+  </style>
+</head>
+<body>
+  <div class="login-container">
+    <div class="login-header">
+      <h1>🔐 Acesso Admin</h1>
+      <p>Entre com suas credenciais</p>
+    </div>
+    
+    <div id="error-message" class="error-message"></div>
+    <div id="blocked-message" class="blocked-message"></div>
+    <div id="attempts-warning" class="attempts-warning"></div>
+    
+    <form id="login-form">
+      <div class="form-group">
+        <label for="username">Usuário</label>
+        <input 
+          type="text" 
+          id="username" 
+          name="username" 
+          required 
+          autocomplete="username"
+          placeholder="Digite seu usuário"
+        />
+      </div>
+      
+      <div class="form-group">
+        <label for="password">Senha</label>
+        <input 
+          type="password" 
+          id="password" 
+          name="password" 
+          required 
+          autocomplete="current-password"
+          placeholder="Digite sua senha"
+        />
+      </div>
+      
+      <button type="submit" class="login-button">Entrar</button>
+    </form>
+  </div>
+  
+  <script>
+    // Configurações de segurança
+    const MAX_ATTEMPTS = 3;
+    const BLOCK_DURATION = 15 * 60 * 1000; // 15 minutos em milissegundos
+    
+    const form = document.getElementById('login-form');
+    const errorMessage = document.getElementById('error-message');
+    const blockedMessage = document.getElementById('blocked-message');
+    const attemptsWarning = document.getElementById('attempts-warning');
+    const loginButton = form.querySelector('button[type="submit"]');
+    
+    // Função para verificar se está bloqueado
+    function isBlocked() {
+      const blockedUntil = sessionStorage.getItem('login-blocked-until');
+      if (!blockedUntil) return false;
+      
+      const now = Date.now();
+      const blockedTime = parseInt(blockedUntil);
+      
+      if (now < blockedTime) {
+        // Ainda bloqueado
+        const minutesLeft = Math.ceil((blockedTime - now) / (60 * 1000));
+        blockedMessage.textContent = `🔒 Acesso bloqueado por ${minutesLeft} minuto${minutesLeft > 1 ? 's' : ''} devido a múltiplas tentativas falhas.`;
+        blockedMessage.classList.add('show');
+        form.style.pointerEvents = 'none';
+        form.style.opacity = '0.6';
+        loginButton.disabled = true;
+        return true;
+      } else {
+        // Bloqueio expirou
+        sessionStorage.removeItem('login-blocked-until');
+        sessionStorage.removeItem('login-attempts');
+        blockedMessage.classList.remove('show');
+        form.style.pointerEvents = 'auto';
+        form.style.opacity = '1';
+        loginButton.disabled = false;
+        return false;
+      }
+    }
+    
+    // Função para obter número de tentativas
+    function getAttempts() {
+      return parseInt(sessionStorage.getItem('login-attempts') || '0');
+    }
+    
+    // Função para incrementar tentativas
+    function incrementAttempts() {
+      const attempts = getAttempts() + 1;
+      sessionStorage.setItem('login-attempts', attempts.toString());
+      
+      if (attempts >= MAX_ATTEMPTS) {
+        // Bloquear por 15 minutos
+        const blockedUntil = Date.now() + BLOCK_DURATION;
+        sessionStorage.setItem('login-blocked-until', blockedUntil.toString());
+        isBlocked();
+      } else {
+        // Mostrar aviso de tentativas restantes
+        const remaining = MAX_ATTEMPTS - attempts;
+        attemptsWarning.textContent = `⚠️ Tentativa ${attempts} de ${MAX_ATTEMPTS}. ${remaining} tentativa${remaining > 1 ? 's' : ''} restante${remaining > 1 ? 's' : ''} antes do bloqueio.`;
+        attemptsWarning.classList.add('show');
+      }
+    }
+    
+    // Função para resetar tentativas (após login bem-sucedido)
+    function resetAttempts() {
+      sessionStorage.removeItem('login-attempts');
+      sessionStorage.removeItem('login-blocked-until');
+      attemptsWarning.classList.remove('show');
+      blockedMessage.classList.remove('show');
+    }
+    
+    // Verificar bloqueio ao carregar a página
+    document.addEventListener('DOMContentLoaded', function() {
+      isBlocked();
+      
+      // Atualizar contador de bloqueio a cada minuto
+      if (sessionStorage.getItem('login-blocked-until')) {
+        setInterval(() => {
+          if (!isBlocked()) {
+            attemptsWarning.classList.remove('show');
+          }
+        }, 60000); // Atualizar a cada minuto
+      }
+    });
+    
+    form.addEventListener('submit', async function(e) {
+      e.preventDefault();
+      
+      // Verificar se está bloqueado
+      if (isBlocked()) {
+        return;
+      }
+      
+      const username = document.getElementById('username').value;
+      const password = document.getElementById('password').value;
+      
+      // Desabilitar botão durante o login
+      loginButton.disabled = true;
+      loginButton.textContent = 'Entrando...';
+      errorMessage.classList.remove('show');
+      attemptsWarning.classList.remove('show');
+      
+      try {
+        // Validar credenciais via API (usa variáveis de ambiente no servidor)
+        const response = await fetch('/api/admin/login', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({ username, password }),
+        });
+        
+        const data = await response.json();
+        
+        if (data.success) {
+          // Resetar tentativas após login bem-sucedido
+          resetAttempts();
+          
+          // Redirecionar para o admin com token na URL
+          // O token será removido da URL, mas ao recarregar, não estará mais lá
+          // Isso garante que ao recarregar, sempre volta para login
+          window.location.href = '/admin?auth=true';
+        } else {
+          // Incrementar tentativas
+          incrementAttempts();
+          
+          // Mostrar erro
+          errorMessage.textContent = data.message || 'Usuário ou senha incorretos!';
+          errorMessage.classList.add('show');
+          
+          // Limpar campos
+          document.getElementById('password').value = '';
+          document.getElementById('password').focus();
+          
+          // Verificar se foi bloqueado
+          if (isBlocked()) {
+            return;
+          }
+        }
+      } catch (error) {
+        // Erro de rede ou servidor
+        errorMessage.textContent = 'Erro ao conectar com o servidor. Tente novamente.';
+        errorMessage.classList.add('show');
+        console.error('Erro no login:', error);
+      } finally {
+        // Reabilitar botão (se não estiver bloqueado)
+        if (!isBlocked()) {
+          loginButton.disabled = false;
+          loginButton.textContent = 'Entrar';
+        }
+      }
+    });
+    
+    // Não verificar autenticação prévia - sempre mostrar a tela de login
+    // Isso força o usuário a fazer login novamente ao recarregar
+  </script>
+</body>
+</html>
+
