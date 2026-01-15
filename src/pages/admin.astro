@@ -50,6 +50,21 @@
               const data = entry.get('data');
               let updatedData = data;
               
+              // Forçar slug baseado apenas no título
+              const titulo = data.get('titulo');
+              if (titulo) {
+                // Gerar slug apenas do título (remover acentos, espaços, etc)
+                const slug = titulo
+                  .toLowerCase()
+                  .normalize('NFD')
+                  .replace(/[\u0300-\u036f]/g, '') // Remove acentos
+                  .replace(/[^a-z0-9]+/g, '-') // Substitui não-alfanuméricos por hífen
+                  .replace(/^-+|-+$/g, ''); // Remove hífens do início/fim
+                
+                // Forçar o slug da entrada a usar apenas o título
+                entry = entry.set('slug', slug);
+              }
+              
               // Gerar ID se não existir ou for string vazia
               const currentId = data.get('id');
               if (!currentId || currentId === '' || currentId === null) {

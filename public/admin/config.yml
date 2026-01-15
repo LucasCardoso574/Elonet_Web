@@ -32,7 +32,7 @@ collections:
     label: "Notícias" # Used in the UI
     folder: "src/content/noticias" # The path to the folder where the documents are stored
     create: true # Allow users to create new documents in this collection
-    slug: "{{slug}}" # Usa apenas o título para gerar o nome do arquivo
+    slug: "{{slug}}" # Nome do arquivo baseado apenas no título (primeiro campo string)
     fields: # The fields for each document, usually in frontmatter
       - {label: "ID", name: "id", widget: "hidden", default: ""}
       - {label: "Título", name: "titulo", widget: "string", required: true}
