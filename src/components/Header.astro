@@ -262,7 +262,7 @@ const { currentPath = Astro.url.pathname } = Astro.props;
     
     menu.appendChild(nav);
     document.body.appendChild(menu);
-  }
+    }
 
   function toggleMobileMenu() {
     var menu = document.getElementById('mobile-menu');
@@ -302,15 +302,15 @@ const { currentPath = Astro.url.pathname } = Astro.props;
     btn.setAttribute('aria-expanded', 'false');
     document.body.style.overflow = '';
   }
-  
-  // Fechar com ESC
-  document.addEventListener('keydown', function(e) {
-    if (e.key === 'Escape') {
-      var menu = document.getElementById('mobile-menu');
-      if (menu && menu.classList.contains('is-open')) {
-        closeMobileMenu();
+    
+    // Fechar com ESC
+    document.addEventListener('keydown', function(e) {
+      if (e.key === 'Escape') {
+        var menu = document.getElementById('mobile-menu');
+        if (menu && menu.classList.contains('is-open')) {
+          closeMobileMenu();
+        }
       }
-    }
   });
 </script>
 

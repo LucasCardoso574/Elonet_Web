@@ -11,22 +11,21 @@
 #   proxy_url: http://localhost:8081/api/v1
 #   branch: main
 
-# OPÇÃO 2: Produção no Netlify (com Git Gateway)
-# Use esta opção no Netlify em produção:
-backend:
-  name: git-gateway
-  branch: main
-
-# OPÇÃO 3: Produção no LocalWeb ou outro servidor (Git direto)
-# Descomente estas linhas e comente a opção acima quando migrar para LocalWeb:
-# IMPORTANTE: Substitua 'seu-usuario/seu-repo' pelo seu repositório Git
+# OPÇÃO 2: Produção no Netlify (com Git Gateway - DEPRECADO)
+# O Netlify Identity foi descontinuado. Use OPÇÃO 3 (Git direto) em vez disso.
 # backend:
-#   name: git
-#   repo: seu-usuario/seu-repo  # Exemplo: elonet/elonet-website
+#   name: git-gateway
 #   branch: main
-#   auth_type: implicit  # Ou 'token' se usar Personal Access Token
-#   app_id: SEU_APP_ID  # Se usar OAuth (GitHub/GitLab)
-#   auth_scope: repo    # Permissões necessárias
+
+# OPÇÃO 3: Produção com Git direto (GitHub OAuth)
+# Use esta opção no Netlify ou qualquer servidor:
+backend:
+  name: git
+  repo: LucasCardoso574/Elonet_Web  # Seu repositório GitHub
+  branch: main
+  auth_type: implicit  # OAuth flow
+  app_id: Ov23ctELLOAj78uwfJ2b  # Client ID do GitHub OAuth App
+  auth_scope: repo    # Permissões necessárias
 
 media_folder: "public/images/noticias" # Media files will be stored in the repo under public/images/noticias
 public_folder: "/images/noticias" # The src attribute for uploaded media will begin with /images/noticias
