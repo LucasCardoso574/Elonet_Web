@@ -62,26 +62,40 @@ import LatestNewsCard from '../components/LatestNewsCard.astro';
   });
   
   // Carregar e inicializar AOS de forma segura
-  document.addEventListener('DOMContentLoaded', function() {
-    const script = document.createElement('script');
-    script.src = 'https://unpkg.com/aos@2.3.1/dist/aos.js';
-    script.async = true;
-    script.onload = function() {
-      if (typeof AOS !== 'undefined') {
-        AOS.init({
-          duration: 800,
-          easing: 'ease-in-out',
-          once: true,
-          offset: 200,
-          disable: window.innerWidth < 768
-        });
-      }
-    };
-    script.onerror = function() {
-      console.error('Erro ao carregar AOS');
-    };
-    document.head.appendChild(script);
-  });
+  function initAOS() {
+    if (typeof AOS !== 'undefined') {
+      AOS.init({
+        duration: 800,
+        easing: 'ease-in-out',
+        once: true,
+        offset: 200,
+        disable: window.innerWidth < 768
+      });
+    } else {
+      const script = document.createElement('script');
+      script.src = 'https://unpkg.com/aos@2.3.1/dist/aos.js';
+      script.async = true;
+      script.onload = function() {
+        if (typeof AOS !== 'undefined') {
+          AOS.init({
+            duration: 800,
+            easing: 'ease-in-out',
+            once: true,
+            offset: 200,
+            disable: window.innerWidth < 768
+          });
+        }
+      };
+      script.onerror = function() {
+        console.error('Erro ao carregar AOS');
+      };
+      document.head.appendChild(script);
+    }
+  }
+  
+  // Executar no carregamento inicial e após navegação com View Transitions
+  document.addEventListener('DOMContentLoaded', initAOS);
+  document.addEventListener('astro:page-load', initAOS);
 </script>
 
 <style>

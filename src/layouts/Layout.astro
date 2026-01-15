@@ -4,6 +4,7 @@ import '../styles/base.css';
 import '../styles/grid.css';
 import '../styles/theme.css';
 import '../styles/mobile-menu.css';
+import { ViewTransitions } from 'astro:transitions';
 
 interface Props {
   title?: string;
@@ -20,6 +21,7 @@ const { title = "Elonet Habitação - Especialistas em Novação FCVS" } = Astro
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta name="generator" content={Astro.generator} />
     <title>{title}</title>
+    <ViewTransitions />
     
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -159,6 +161,82 @@ const { title = "Elonet Habitação - Especialistas em Novação FCVS" } = Astro
   </head>
   <body>
     <slot />
+    
+    <!-- Aviso de Cookies -->
+    <div id="cookie-notice" class="cookie-notice">
+      <p>Informamos que este site não utiliza cookies para coleta de dados ou rastreamento de navegação.</p>
+      <button id="cookie-ok" class="cookie-btn">Entendi</button>
+    </div>
+    
+    <style>
+      .cookie-notice {
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        background: #1a1a1a;
+        color: #fff;
+        padding: 1rem 1.5rem;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 1.5rem;
+        z-index: 999999;
+        box-shadow: 0 -2px 10px rgba(0,0,0,0.2);
+      }
+      .cookie-notice p {
+        margin: 0;
+        font-size: 0.9375rem;
+      }
+      .cookie-btn {
+        background: #006400;
+        color: #fff;
+        border: none;
+        padding: 0.5rem 1.5rem;
+        border-radius: 4px;
+        cursor: pointer;
+        font-weight: 600;
+        transition: background 0.2s;
+      }
+      .cookie-btn:hover {
+        background: #008000;
+      }
+      .cookie-notice.hidden {
+        display: none;
+      }
+      @media (max-width: 600px) {
+        .cookie-notice {
+          flex-direction: column;
+          gap: 0.75rem;
+          text-align: center;
+        }
+      }
+    </style>
+    
+    <script is:inline>
+      function initCookieNotice() {
+        var btn = document.getElementById('cookie-ok');
+        var notice = document.getElementById('cookie-notice');
+        
+        // Verificar se já fechou nesta sessão
+        if (sessionStorage.getItem('cookie-notice-closed')) {
+          if (notice) notice.style.display = 'none';
+          return;
+        }
+        
+        if (btn && notice) {
+          btn.onclick = function() {
+            notice.style.display = 'none';
+            sessionStorage.setItem('cookie-notice-closed', 'true');
+          };
+        }
+      }
+      
+      // Executar no carregamento inicial e após navegação com View Transitions
+      document.addEventListener('DOMContentLoaded', initCookieNotice);
+      document.addEventListener('astro:page-load', initCookieNotice);
+    </script>
+    
     <!-- Netlify Identity Widget (apenas se estiver no Netlify) -->
     {import.meta.env.PROD && import.meta.env.SITE?.includes('netlify') && (
       <>

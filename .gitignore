@@ -29,3 +29,6 @@ src/content/noticias/map-id-*
 src/content/noticias/teste*.md
 src/content/noticias/*teste*.md
 src/content/noticias/noticia-*.md
+
+# Local Netlify folder
+.netlify
