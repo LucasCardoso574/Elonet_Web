@@ -20,12 +20,11 @@
 # OPÇÃO 3: Produção com Git direto (GitHub OAuth)
 # Use esta opção no Netlify ou qualquer servidor:
 backend:
-  name: git
-  repo: LucasCardoso574/Elonet_Web  # Seu repositório GitHub
+  name: github
+  repo: LucasCardoso574/Elonet_Web
   branch: main
-  auth_type: implicit  # OAuth flow
-  app_id: Ov23ctELLOAj78uwfJ2b  # Client ID do GitHub OAuth App
-  auth_scope: repo    # Permissões necessárias
+  base_url: https://api.netlify.com
+  auth_endpoint: auth
 
 media_folder: "public/images/noticias" # Media files will be stored in the repo under public/images/noticias
 public_folder: "/images/noticias" # The src attribute for uploaded media will begin with /images/noticias
