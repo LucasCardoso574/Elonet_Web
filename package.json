@@ -8,6 +8,7 @@
     "cms:proxy": "npx decap-server",
     "build": "astro build",
     "preview": "astro preview",
+    "deploy:localweb": "powershell -ExecutionPolicy Bypass -File ./deploy-localweb.ps1",
     "astro": "astro"
   },
   "dependencies": {
